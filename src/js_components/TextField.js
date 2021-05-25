@@ -2,51 +2,43 @@ import React, {useState, useEffect} from 'react';
 import { Word } from './Word'
 import '../App.css';
 
-var sentence = [];
-
 export function TextField(props){
-
+  /*
   function handleClick(index) {
     console.log('Word \'' + sentence[index] + '\' was clicked.');
   }
+  */
 
-  if(props.time === -1) {
-    sentence = []
+  const handleTyping = (event) => {
+    props.stop()
+    props.handle_typing(event.target.value)
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let sentence = document.getElementById('field').value
+    props.on_submit(sentence)
+  }
 
-  useEffect(()=> {
-    fetch('/api', {
-      method: 'POST',
-      body: JSON.stringify({
-        'id': props.time
-      }),
-      headers: {
-        "Content-type": "aplication/json; charset=UTF-8"
-      }
-    }).then(response => response.json())
-    .then(message => {
-      if(message.word === "\\eof") {
-        console.log('Try to stop')
-        props.stop();
-      }
-      else {
-        sentence.push(message.word)
-        console.log(sentence)
-      }
-    })
-  },[props.time])
-  
-  var s = [];
+  var s = '';
   let i = 0;
-  for (let w of sentence) {
-    s.push(<Word value={w} key={i} index={i} onClick={handleClick}/>);
+  for (let w of props.sentence) {
+    //s.push(<Word value={w} key={i} index={i} onClick={handleClick}/>);
+    s += w
+    if(i < props.sentence.length -1) {
+      s += ' '
+    }
     i = i+1;
   }
+  //console.log(s)
+
   
   return (
-    <div className="TextField">
-       {s}
-    </div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <textarea id='field' type='text' className="TextField" value={s} onChange={handleTyping}></textarea>
+        <input type='submit' value='Apply'></input>
+      </form>
+    </>
   )
 }

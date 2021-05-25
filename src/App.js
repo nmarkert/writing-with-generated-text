@@ -13,6 +13,7 @@ class App extends React.Component {
       seconds: -1,
       running: false,
       speed: 1000,
+      sentence: [],
     };
     this.startClock = this.startClock.bind(this);
     this.stopClock = this.stopClock.bind(this);
@@ -21,12 +22,34 @@ class App extends React.Component {
     this.slowerGeneration = this.slowerGeneration.bind(this);
     this.generation_started = this.generation_started.bind(this);
     this.generation_finished = this.generation_finished.bind(this);
+    this.new_generation = this.new_generation.bind(this);
+    this.handle_typing = this.handle_typing.bind(this);
   }
 
   tick() {
     this.setState(state => ({
       seconds: state.seconds + 1,
     }));
+
+    fetch('/api', {
+      method: 'POST',
+      body: JSON.stringify({
+        'id': this.state.seconds
+      }),
+      headers: {
+        "Content-type": "aplication/json; charset=UTF-8"
+      }
+    }).then(response => response.json())
+    .then(message => {
+      if(message.word === "\\eof") {
+        console.log('Try to stop')
+        this.stopClock();
+      }
+      else {
+        this.state.sentence.push(message.word)
+        console.log(this.state.sentence)
+      }
+    })
   }
 
   startClock() {
@@ -49,7 +72,10 @@ class App extends React.Component {
 
   redoGeneration() {
     //this.stopClock()
-    this.setState({seconds: -1});
+    this.setState({
+      seconds: -1,
+      sentence: [],
+    });
     if(!this.state.running) {
       this.startClock()
     }
@@ -95,6 +121,35 @@ class App extends React.Component {
     }
     this.startClock()
   }
+
+  new_generation(sentence) {
+    this.generation_started()
+    fetch('/generate_new', {
+      method: 'POST',
+      body: JSON.stringify({
+          'content': sentence
+      }),
+      headers: {
+          "Content-type": "aplication/json; charset=UTF-8"
+        }
+    }).then(response => response.json())
+    .then(message => {
+        console.log(message.index)
+        this.setState({
+          seconds : message.index - 1
+        })
+        this.generation_finished()
+        this.startClock()
+    })
+
+  }
+
+  handle_typing(s) {
+    let new_sentence = s.split(" ")
+    this.setState({
+      sentence: new_sentence,
+    })
+  }
   
 
   render() {
@@ -106,7 +161,7 @@ class App extends React.Component {
         </div>
         <div>
           Generated Text:
-          <TextField time={this.state.seconds} stop={this.stopClock}/>
+          <TextField stop={this.stopClock} on_submit={this.new_generation} sentence={this.state.sentence} handle_typing={this.handle_typing}/>
         </div>
         <div>
           <button onClick={this.startClock} > Start </button>

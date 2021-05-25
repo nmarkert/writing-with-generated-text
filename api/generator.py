@@ -14,7 +14,7 @@ def get_mock_sentence():
 
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 # add the EOS token as PAD token to avoid warnings
-model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
+model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=tokenizer.eos_token_id)
 
 def generate_sentence(keywords):
     input_ids = tokenizer.encode(keywords, return_tensors='tf')
@@ -23,8 +23,8 @@ def generate_sentence(keywords):
     sample_output = model.generate(
         input_ids, 
         do_sample=True,
-        min_length=40, 
-        max_length=70,
+        min_length=20, 
+        max_length=40,
         top_p=0.80, # sample only from 80% most likely words
         top_k=50, # in adition set top_k to 50
     )
@@ -67,5 +67,6 @@ class Generator:
 
 if __name__ == "__main__":
     g = Generator()
+    g.create_sentence('I was playing with my dog, when')
     for i in range(-1, 20):
         print(g.getAt(i))
