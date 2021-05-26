@@ -3,9 +3,7 @@ export function KeywordInput(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         let keyword = document.getElementById('input').value
-        document.getElementById('status_lbl').textContent = 'Generating...'
-        document.getElementById('generate_btn').disabled = true
-        props.g_started()
+        props.g_started(true)
         
         fetch('/generate', {
             method: 'POST',
@@ -18,20 +16,25 @@ export function KeywordInput(props) {
           }).then(response => response.json())
           .then(message => {
               console.log(message.ready)
-              document.getElementById('status_lbl').textContent = 'Finished Generation!'
-              document.getElementById('generate_btn').disabled = false
               props.g_finished()
-
           })
+    }
+
+    var lbl
+    if(props.disabled) {
+        lbl = 'Generating...'
+    }
+    else {
+        lbl = '. . .'
     }
 
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input type='text' required id='input'></input>
-                <input type='submit' value='Generate' id='generate_btn'></input>
+                <input type='text' required id='input' disabled={props.disabled}></input>
+                <input type='submit' value='Generate' disabled={props.disabled}></input>
             </form>
-            <label id='status_lbl'></label>
+            <label id='status_lbl'> {lbl} </label>
         </>
     )
 }

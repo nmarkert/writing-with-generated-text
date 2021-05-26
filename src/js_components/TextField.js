@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Word } from './Word'
 import '../App.css';
 
+var intervalId = -1
+
 export function TextField(props){
   /*
   function handleClick(index) {
@@ -10,12 +12,26 @@ export function TextField(props){
   */
 
   const handleTyping = (event) => {
+    event.preventDefault()
     props.stop()
     props.handle_typing(event.target.value)
+
+    if(intervalId != -1) {
+      clearInterval(intervalId)
+    }
+    intervalId = setInterval(apply_changes, 3000)
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
+    apply_changes()
+  }
+
+  const apply_changes = () => {
+    if(intervalId != -1) {
+      clearInterval(intervalId)
+      intervalId = -1
+    }
     let sentence = document.getElementById('field').value
     props.on_submit(sentence)
   }
@@ -36,8 +52,8 @@ export function TextField(props){
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <textarea id='field' type='text' className="TextField" value={s} onChange={handleTyping}></textarea>
-        <input type='submit' value='Apply'></input>
+        <textarea id='field' type='text' className="TextField" value={s} onChange={handleTyping} disabled={props.disabled}></textarea>
+        <input type='submit' value='Apply' disabled={props.disabled}></input>
       </form>
     </>
   )

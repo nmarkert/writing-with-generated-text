@@ -23,8 +23,8 @@ def generate_sentence(keywords):
     sample_output = model.generate(
         input_ids, 
         do_sample=True,
-        min_length=20, 
-        max_length=40,
+        min_length=40, 
+        max_length=60,
         top_p=0.80, # sample only from 80% most likely words
         top_k=50, # in adition set top_k to 50
     )

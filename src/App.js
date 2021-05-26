@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { TextField } from './js_components/TextField'
 import { KeywordInput } from './js_components/KeywordInput'
+import { ControllButtons } from './js_components/ControllButtons'
 import './App.css';
 
 
@@ -14,6 +15,7 @@ class App extends React.Component {
       running: false,
       speed: 1000,
       sentence: [],
+      isGenerating: false,
     };
     this.startClock = this.startClock.bind(this);
     this.stopClock = this.stopClock.bind(this);
@@ -107,23 +109,28 @@ class App extends React.Component {
     }
   }
 
-  generation_started() {
+  generation_started(clearSentence) {
     this.stopClock()
-    this.setState({seconds: -1});
-    for(let btn of document.getElementsByTagName('button')) {
-      btn.disabled = true
+    this.setState({
+      seconds: -1,
+      isGenerating: true,
+    });
+    if(clearSentence) {
+      this.setState({
+        sentence: [], 
+      })
     }
   }
 
   generation_finished() {
-    for(let btn of document.getElementsByTagName('button')) {
-      btn.disabled = false
-    }
+    this.setState({
+      isGenerating: false,
+    });
     this.startClock()
   }
 
   new_generation(sentence) {
-    this.generation_started()
+    this.generation_started(false)
     fetch('/generate_new', {
       method: 'POST',
       body: JSON.stringify({
@@ -136,10 +143,10 @@ class App extends React.Component {
     .then(message => {
         console.log(message.index)
         this.setState({
+          sentence: sentence.split(" "),
           seconds : message.index - 1
         })
         this.generation_finished()
-        this.startClock()
     })
 
   }
@@ -157,18 +164,31 @@ class App extends React.Component {
       <div className="App">
         <h1> prototype </h1>
         <div>
-          <KeywordInput g_started={this.generation_started} g_finished={this.generation_finished}/>
+          <KeywordInput 
+            g_started={this.generation_started} 
+            g_finished={this.generation_finished} 
+            disabled={this.state.isGenerating}
+          />
         </div>
         <div>
           Generated Text:
-          <TextField stop={this.stopClock} on_submit={this.new_generation} sentence={this.state.sentence} handle_typing={this.handle_typing}/>
+          <TextField 
+            stop={this.stopClock}
+            on_submit={this.new_generation} 
+            sentence={this.state.sentence} 
+            handle_typing={this.handle_typing}
+            disabled={this.state.isGenerating}
+           />
         </div>
         <div>
-          <button onClick={this.startClock} > Start </button>
-          <button onClick={this.stopClock}> Stop </button>
-          <button onClick={this.redoGeneration}> Redo </button>
-          <button onClick={this.slowerGeneration}> {'<<'} </button>
-          <button onClick={this.fasterGeneration}> {'>>'} </button>
+          <ControllButtons 
+            startClock={this.startClock} 
+            stopClock={this.stopClock}
+            redoGeneration={this.redoGeneration}
+            slowerGeneration={this.slowerGeneration}
+            fasterGeneration={this.fasterGeneration}
+            disabled={this.state.isGenerating}
+          />
         </div>
       </div>
     );

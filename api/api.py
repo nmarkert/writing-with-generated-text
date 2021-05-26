@@ -28,3 +28,5 @@ def generate_new_sentene():
     index = len(sentence.split(' '))
     return {'ready': g.create_sentence(sentence),
             'index': index}
+
+app.run(debug=False)
