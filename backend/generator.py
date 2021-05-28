@@ -1,3 +1,5 @@
+# Guide on generating:
+# https://huggingface.co/blog/how-to-generate
 import random
 import tensorflow as tf
 from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
@@ -12,9 +14,9 @@ def get_mock_sentence():
     return mock_sentences[random.randint(0, len(mock_sentences)-1)].split(' ')
 
 
-tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+#tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 # add the EOS token as PAD token to avoid warnings
-model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=tokenizer.eos_token_id)
+#model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=tokenizer.eos_token_id)
 
 def generate_sentence(keywords):
     input_ids = tokenizer.encode(keywords, return_tensors='tf')
@@ -39,7 +41,8 @@ class Generator:
     
     def create_sentence(self, keywords):
         self.sentence = []
-        self.sentence = generate_sentence(keywords).replace('\n', ' ').split(' ')
+        #self.sentence = generate_sentence(keywords).replace('\n', ' ').split(' ')
+        self.sentence = get_mock_sentence()
         print(self.sentence)
         return True
         

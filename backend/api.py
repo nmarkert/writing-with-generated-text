@@ -1,7 +1,9 @@
 from flask import Flask, Response, request, json
 import generator
+#import redis
 
 app = Flask(__name__)
+#cache = redis.Redis(host='redis', port=6379)
 
 g = generator.Generator()
 
