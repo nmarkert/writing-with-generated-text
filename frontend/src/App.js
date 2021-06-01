@@ -33,7 +33,7 @@ class App extends React.Component {
       seconds: state.seconds + 1,
     }));
 
-    fetch('/api', {
+    fetch('/api/get_next', {
       method: 'POST',
       body: JSON.stringify({
         'id': this.state.seconds
@@ -53,6 +53,7 @@ class App extends React.Component {
       }
     })
   }
+
 
   startClock() {
     console.log('Starting')
@@ -131,7 +132,7 @@ class App extends React.Component {
 
   new_generation(sentence) {
     this.generation_started(false)
-    fetch('/generate_new', {
+    fetch('/api/generate_new', {
       method: 'POST',
       body: JSON.stringify({
           'content': sentence
@@ -171,7 +172,7 @@ class App extends React.Component {
           />
         </div>
         <div>
-          Generated Text:
+          Generated Text: 
           <TextField 
             stop={this.stopClock}
             on_submit={this.new_generation} 

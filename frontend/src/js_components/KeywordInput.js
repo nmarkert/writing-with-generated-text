@@ -5,7 +5,7 @@ export function KeywordInput(props) {
         let keyword = document.getElementById('input').value
         props.g_started(true)
         
-        fetch('/generate', {
+        fetch('/api/generate', {
             method: 'POST',
             body: JSON.stringify({
                 'content': keyword

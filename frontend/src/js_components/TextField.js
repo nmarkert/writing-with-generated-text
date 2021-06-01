@@ -16,7 +16,7 @@ export function TextField(props){
     props.stop()
     props.handle_typing(event.target.value)
 
-    if(intervalId != -1) {
+    if(intervalId !== -1) {
       clearInterval(intervalId)
     }
     intervalId = setInterval(apply_changes, 3000)
@@ -28,7 +28,7 @@ export function TextField(props){
   }
 
   const apply_changes = () => {
-    if(intervalId != -1) {
+    if(intervalId !== -1) {
       clearInterval(intervalId)
       intervalId = -1
     }

@@ -1,8 +1,7 @@
 # Guide on generating:
 # https://huggingface.co/blog/how-to-generate
 import random
-import tensorflow as tf
-from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
+#from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
 
 mock_sentences = [
     'The quick brown fox jumps over the lazy dog.',
@@ -15,24 +14,22 @@ def get_mock_sentence():
 
 
 #tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-# add the EOS token as PAD token to avoid warnings
+#add the EOS token as PAD token to avoid warnings
 #model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=tokenizer.eos_token_id)
 
-def generate_sentence(keywords):
-    input_ids = tokenizer.encode(keywords, return_tensors='tf')
-
-    tf.random.set_seed(random.random())
-    sample_output = model.generate(
-        input_ids, 
-        do_sample=True,
-        min_length=40, 
-        max_length=60,
-        top_p=0.80, # sample only from 80% most likely words
-        top_k=50, # in adition set top_k to 50
-    )
-
-    return tokenizer.decode(sample_output[0], skip_special_tokens=True)
-
+#def generate_sentence(keywords):
+#    input_ids = tokenizer.encode(keywords, return_tensors='tf')
+#
+#    sample_output = model.generate(
+#        input_ids, 
+#        do_sample=True,
+#        min_length=40, 
+#        max_length=60,
+#        top_p=0.80, # sample only from 80% most likely words
+#        top_k=50, # in adition set top_k to 50
+#    )
+#
+#    return tokenizer.decode(sample_output[0], skip_special_tokens=True)
 
 class Generator:
     def __init__(self):

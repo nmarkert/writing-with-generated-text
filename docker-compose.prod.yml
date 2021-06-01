@@ -1,0 +1,27 @@
+version: "3.9"
+networks:
+    nginx-proxy-manager:
+      external:
+        name: nginx-proxy-manager
+services:
+  your-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    environment:
+      FLASK_DEBUG: 0
+  your-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+  your-nginx:
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.prod.conf
+      - $PWD/frontend/build:/frontend/public
+    networks:
+      - nginx-proxy-manager

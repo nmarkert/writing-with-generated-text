@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  your-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      FLASK_DEBUG: 1
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+  your-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/build/:/ui/build/
+      - ./frontend/public:/ui/public/
+      - ./frontend/src/:/ui/src/
+  your-nginx:
+    image: nginx
+    ports:
+        - 8080:80
+    volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+        - your-backend
