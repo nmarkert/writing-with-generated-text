@@ -1,7 +1,8 @@
 # Guide on generating:
 # https://huggingface.co/blog/how-to-generate
 import random
-#from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
+import torch
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 mock_sentences = [
     'The quick brown fox jumps over the lazy dog.',
@@ -13,33 +14,48 @@ def get_mock_sentence():
     return mock_sentences[random.randint(0, len(mock_sentences)-1)].split(' ')
 
 
-#tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-#add the EOS token as PAD token to avoid warnings
-#model = TFGPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=tokenizer.eos_token_id)
-
-#def generate_sentence(keywords):
-#    input_ids = tokenizer.encode(keywords, return_tensors='tf')
-#
-#    sample_output = model.generate(
-#        input_ids, 
-#        do_sample=True,
-#        min_length=40, 
-#        max_length=60,
-#        top_p=0.80, # sample only from 80% most likely words
-#        top_k=50, # in adition set top_k to 50
-#    )
-#
-#    return tokenizer.decode(sample_output[0], skip_special_tokens=True)
-
 class Generator:
     def __init__(self):
         self.index = 0
         self.sentence = []
+        self.model_loaded = False
+        self.model = None
+        self.tokenizer = None
     
+
+    def load_model(self):
+        print('Start loading')
+        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+        #add the EOS token as PAD token to avoid warnings
+        self.model = GPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=self.tokenizer.eos_token_id)
+        print('Finished loading')
+        self.model_loaded = True
+    
+
+    def generate_sentence(self, keywords):
+        if not self.model_loaded:
+            self.load_model()
+
+        input_ids = self.tokenizer.encode(keywords, return_tensors='pt')
+
+        sample_output = self.model.generate(
+            input_ids, 
+            do_sample=True,
+            min_length=40, 
+            max_length=60,
+            top_p=0.80, # sample only from 80% most likely words
+            top_k=50, # in adition set top_k to 50
+        )
+        return self.tokenizer.decode(sample_output[0], skip_special_tokens=True)
+    
+
     def create_sentence(self, keywords):
         self.sentence = []
-        #self.sentence = generate_sentence(keywords).replace('\n', ' ').split(' ')
-        self.sentence = get_mock_sentence()
+        if keywords == '':
+            self.sentence = get_mock_sentence()
+        else:
+            self.sentence = self.generate_sentence(keywords).replace('\n', ' ').split(' ')
+            #self.sentence = get_mock_sentence()
         print(self.sentence)
         return True
         
@@ -67,6 +83,10 @@ class Generator:
 
 if __name__ == "__main__":
     g = Generator()
-    g.create_sentence('I was playing with my dog, when')
-    for i in range(-1, 20):
-        print(g.getAt(i))
+    answer = 'y'
+    while answer == 'y':
+        g.create_sentence('I was playing with my dog, when')
+        for i in range(-1, 10):
+            print(g.getAt(i))
+        
+        answer = input('You want to try again? (y)(n) ')

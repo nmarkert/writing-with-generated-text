@@ -5,7 +5,6 @@ import { ControllButtons } from './js_components/ControllButtons'
 import './App.css';
 
 
-
 class App extends React.Component {
   
   constructor(props) {
