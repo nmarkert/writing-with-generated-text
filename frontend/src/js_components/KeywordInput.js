@@ -3,21 +3,7 @@ export function KeywordInput(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         let keyword = document.getElementById('input').value
-        props.g_started(true)
-        
-        fetch('/api/generate', {
-            method: 'POST',
-            body: JSON.stringify({
-                'content': keyword
-            }),
-            headers: {
-                "Content-type": "aplication/json; charset=UTF-8"
-              }
-          }).then(response => response.json())
-          .then(message => {
-              console.log(message.ready)
-              props.g_finished()
-          })
+        props.generate(keyword)
     }
 
     var lbl

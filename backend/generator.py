@@ -49,15 +49,14 @@ class Generator:
         return self.tokenizer.decode(sample_output[0], skip_special_tokens=True)
     
 
-    def create_sentence(self, keywords):
+    def create_sentence(self, keywords, mock_sentence=False):
         self.sentence = []
-        if keywords == '':
+        if mock_sentence or keywords == '':
             self.sentence = get_mock_sentence()
         else:
             self.sentence = self.generate_sentence(keywords).replace('\n', ' ').split(' ')
-            #self.sentence = get_mock_sentence()
         print(self.sentence)
-        return True
+        return self.sentence
         
     def getNext(self, i):
         if i == -1:

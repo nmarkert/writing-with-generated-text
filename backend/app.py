@@ -1,3 +1,4 @@
+from random import random
 from flask import Flask, Response, request, json
 import generator
 
@@ -5,29 +6,22 @@ app = Flask(__name__)
 
 g = generator.Generator()
 
-@app.route('/api/get_next', methods=['POST'])
-def request_next():
-    request_data = json.loads(request.data)
-    i = request_data['id']
-    return {'word': g.getAt(i)}
-
 
 @app.route('/api/generate', methods=['POST'])
-def generate_sentene():
-    request_data = json.loads(request.data)
-    keyword = request_data['content']
-    print(keyword)
-    return {'ready': g.create_sentence(keyword)}
-
-
-@app.route('/api/generate_new', methods=['POST'])
-def generate_new_sentene():
+def generate_sentence():
     request_data = json.loads(request.data)
     sentence = request_data['content']
     print(sentence)
-    index = len(sentence.split(' '))
-    return {'ready': g.create_sentence(sentence),
+    if sentence == '':
+        index = 0
+        mock = True
+    else:
+        index = len(sentence.split(' '))
+        mock = False
+    return {'sentence': g.create_sentence(sentence, mock),
             'index': index}
 
+
+g.load_model()
 print('Everything is ready')
 app.run(debug=False)

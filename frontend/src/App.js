@@ -14,6 +14,7 @@ class App extends React.Component {
       running: false,
       speed: 1000,
       sentence: [],
+      full_sen: [],
       isGenerating: false,
     };
     this.startClock = this.startClock.bind(this);
@@ -28,29 +29,15 @@ class App extends React.Component {
   }
 
   tick() {
-    this.setState(state => ({
-      seconds: state.seconds + 1,
-    }));
-
-    fetch('/api/get_next', {
-      method: 'POST',
-      body: JSON.stringify({
-        'id': this.state.seconds
-      }),
-      headers: {
-        "Content-type": "aplication/json; charset=UTF-8"
-      }
-    }).then(response => response.json())
-    .then(message => {
-      if(message.word === "\\eof") {
-        console.log('Try to stop')
-        this.stopClock();
-      }
-      else {
-        this.state.sentence.push(message.word)
-        console.log(this.state.sentence)
-      }
-    })
+    this.setState({
+      seconds: this.state.seconds + 1,
+    });
+    if(this.state.seconds >= this.state.full_sen.length) {
+      this.stopClock()
+    }
+    else {
+      this.state.sentence.push(this.state.full_sen[this.state.seconds]);
+    }
   }
 
 
@@ -73,7 +60,6 @@ class App extends React.Component {
   }
 
   redoGeneration() {
-    //this.stopClock()
     this.setState({
       seconds: -1,
       sentence: [],
@@ -131,7 +117,7 @@ class App extends React.Component {
 
   new_generation(sentence) {
     this.generation_started(false)
-    fetch('/api/generate_new', {
+    fetch('/api/generate', {
       method: 'POST',
       body: JSON.stringify({
           'content': sentence
@@ -144,11 +130,11 @@ class App extends React.Component {
         console.log(message.index)
         this.setState({
           sentence: sentence.split(" "),
+          full_sen: message.sentence,
           seconds : message.index - 1
         })
         this.generation_finished()
     })
-
   }
 
   handle_typing(s) {
@@ -168,6 +154,7 @@ class App extends React.Component {
             g_started={this.generation_started} 
             g_finished={this.generation_finished} 
             disabled={this.state.isGenerating}
+            generate={this.new_generation}
           />
         </div>
         <div>
