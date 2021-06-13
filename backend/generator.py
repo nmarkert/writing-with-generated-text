@@ -1,6 +1,7 @@
 # Guide on generating:
 # https://huggingface.co/blog/how-to-generate
 import random
+import time
 import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
@@ -35,6 +36,8 @@ class Generator:
     def generate_sentence(self, keywords):
         if not self.model_loaded:
             self.load_model()
+        print('Started generating a sentence')
+        start_time = time.perf_counter()
 
         input_ids = self.tokenizer.encode(keywords, return_tensors='pt')
 
@@ -46,6 +49,9 @@ class Generator:
             top_p=0.80, # sample only from 80% most likely words
             top_k=50, # in adition set top_k to 50
         )
+
+        end_time = time.perf_counter()
+        print('Finished generation. Needed Time: '+ str(end_time-start_time) + ' seconds')
         return self.tokenizer.decode(sample_output[0], skip_special_tokens=True)
     
 
