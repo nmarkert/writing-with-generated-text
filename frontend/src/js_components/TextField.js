@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Word } from './Word'
+import React from 'react';
+//import { Word } from './Word'
 import '../App.css';
 
 var intervalId = -1

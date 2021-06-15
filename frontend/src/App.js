@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { TextField } from './js_components/TextField'
-import { KeywordInput } from './js_components/KeywordInput'
-import { ControllButtons } from './js_components/ControllButtons'
+import React from 'react';
+//import { Version1 } from './versions/Version1';
+import { Version2 } from './versions/Version2';
 import './App.css';
 
 
@@ -149,34 +148,19 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1> prototype </h1>
-        <div>
-          <KeywordInput 
-            g_started={this.generation_started} 
-            g_finished={this.generation_finished} 
-            disabled={this.state.isGenerating}
-            generate={this.new_generation}
-          />
-        </div>
-        <div>
-          Generated Text: 
-          <TextField 
-            stop={this.stopClock}
-            on_submit={this.new_generation} 
-            sentence={this.state.sentence} 
-            handle_typing={this.handle_typing}
-            disabled={this.state.isGenerating}
-           />
-        </div>
-        <div>
-          <ControllButtons 
-            startClock={this.startClock} 
-            stopClock={this.stopClock}
-            redoGeneration={this.redoGeneration}
-            slowerGeneration={this.slowerGeneration}
-            fasterGeneration={this.fasterGeneration}
-            disabled={this.state.isGenerating}
-          />
-        </div>
+        <Version2
+          startClock={this.startClock} 
+          stopClock={this.stopClock}
+          redoGeneration={this.redoGeneration}
+          slowerGeneration={this.slowerGeneration}
+          fasterGeneration={this.fasterGeneration}
+          disabled={this.state.isGenerating}
+          generation_started={this.generation_started} 
+          generation_finished={this.generation_finished}
+          new_generation={this.new_generation}
+          sentence={this.state.sentence} 
+          handle_typing={this.handle_typing}
+        />
       </div>
     );
   }
