@@ -7,32 +7,32 @@ export function Version1(props) {
         <>
         <h2> version 1.1 </h2>
         <div>
-        <KeywordInput 
-            g_started={props.generation_started} 
-            g_finished={props.generation_finished} 
-            disabled={props.isGenerating}
-            generate={props.new_generation}
-        />
+            <KeywordInput 
+                g_started={props.generation_started} 
+                g_finished={props.generation_finished} 
+                disabled={props.isGenerating}
+                generate={props.new_generation}
+            />
         </div>
         <div>
-        Generated Text: 
-        <TextField 
-            stop={props.stopClock}
-            on_submit={props.new_generation} 
-            sentence={props.sentence} 
-            handle_typing={props.handle_typing}
-            disabled={props.isGenerating}
-        />
+            Generated Text: 
+            <TextField 
+                stop={props.stopClock}
+                on_submit={props.new_generation} 
+                sentence={props.sentence} 
+                handle_typing={props.handle_typing}
+                disabled={props.isGenerating}
+            />
         </div>
         <div>
-        <ControllButtons 
-            startClock={props.startClock} 
-            stopClock={props.stopClock}
-            redoGeneration={props.redoGeneration}
-            slowerGeneration={props.slowerGeneration}
-            fasterGeneration={props.fasterGeneration}
-            disabled={props.isGenerating}
-        />
+            <ControllButtons 
+                startClock={props.startClock} 
+                stopClock={props.stopClock}
+                redoGeneration={props.redoGeneration}
+                slowerGeneration={props.slowerGeneration}
+                fasterGeneration={props.fasterGeneration}
+                disabled={props.isGenerating}
+            />
         </div>
         </>
     )

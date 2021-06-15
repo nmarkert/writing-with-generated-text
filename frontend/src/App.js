@@ -14,6 +14,7 @@ class App extends React.Component {
       speed: 1000,
       sentence: [],
       full_sen: [],
+      sen_options: [],
       isGenerating: false,
     };
     this.startClock = this.startClock.bind(this);
@@ -24,7 +25,9 @@ class App extends React.Component {
     this.generation_started = this.generation_started.bind(this);
     this.generation_finished = this.generation_finished.bind(this);
     this.new_generation = this.new_generation.bind(this);
+    this.generate_options = this.generate_options.bind(this);
     this.handle_typing = this.handle_typing.bind(this);
+    this.option_choosed = this.option_choosed.bind(this);
   }
 
   tick() {
@@ -33,6 +36,9 @@ class App extends React.Component {
     });
     if(this.state.seconds >= this.state.full_sen.length) {
       this.stopClock()
+      this.setState({
+        seconds: this.state.full_sen.length-1
+      })
     }
     else {
       this.state.sentence.push(this.state.full_sen[this.state.seconds]);
@@ -136,6 +142,55 @@ class App extends React.Component {
     })
   }
 
+  generate_options(pre, new_gen=true) {
+    if(new_gen) {
+      this.setState({
+        sentence: [],
+        full_sen: pre.split(" "),
+      })
+      this.redoGeneration()
+    }
+
+    console.log(pre)
+
+    fetch('/api/generate_options', {
+      method: 'POST',
+      body: JSON.stringify({
+          'pre_sentence': pre
+      }),
+      headers: {
+          "Content-type": "aplication/json; charset=UTF-8"
+        }
+    }).then(response => response.json())
+    .then(message => {
+        //console.log(message.sentences)
+        this.setState({
+          sen_options: message.sentences,
+        })
+    })
+  }
+
+  option_choosed(opt_idx) {
+    console.log(opt_idx)
+    let pre_l = this.state.full_sen.concat(this.state.sen_options[opt_idx])
+    this.setState({
+      full_sen: pre_l,
+      sen_options: []
+    })
+    let pre_sen = ''
+    let i = 0
+    for (let w of pre_l) {
+      pre_sen += w
+      if(i < pre_l.length-1) {
+        pre_sen += ' '
+      }
+      i++
+    }
+    this.startClock()
+    this.generate_options(pre_sen, false)
+  }
+
+
   handle_typing(s) {
     let new_sentence = s.split(" ")
     this.setState({
@@ -160,6 +215,9 @@ class App extends React.Component {
           new_generation={this.new_generation}
           sentence={this.state.sentence} 
           handle_typing={this.handle_typing}
+          generate_options={this.generate_options}
+          sentence_options={this.state.sen_options}
+          option_choosed={this.option_choosed}
         />
       </div>
     );

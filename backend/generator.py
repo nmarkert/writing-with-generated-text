@@ -76,8 +76,8 @@ class Generator:
         sample_outputs = self.model.generate(
             input_ids, 
             do_sample=True,
-            min_length=len(pre_list)+3, 
-            max_length=len(pre_list)+8,
+            min_length=len(pre_list)+5, 
+            max_length=len(pre_list)+10,
             top_p=0.80, # sample only from 80% most likely words
             top_k=50, # in adition set top_k to 50
             num_return_sequences = amount
