@@ -25,7 +25,9 @@ class Generator:
     
 
     def load_model(self):
-        print('Start loading')
+        if self.model_loaded:
+            return
+        print('Started loading the model')
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         #add the EOS token as PAD token to avoid warnings
         self.model = GPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=self.tokenizer.eos_token_id)
@@ -34,12 +36,13 @@ class Generator:
     
 
     def generate_sentence(self, keywords):
-        if not self.model_loaded:
-            self.load_model()
+        self.load_model()
         print('Started generating a sentence')
-        start_time = time.perf_counter()
+        t1 = time.perf_counter()
 
         input_ids = self.tokenizer.encode(keywords, return_tensors='pt')
+        t2 = time.perf_counter()
+        #print('- ' + str(t2-t1) + ' seconds needed for Encoding')
 
         sample_output = self.model.generate(
             input_ids, 
@@ -48,31 +51,58 @@ class Generator:
             max_length=60,
             top_p=0.80, # sample only from 80% most likely words
             top_k=50, # in adition set top_k to 50
+            num_return_sequences = 1,
         )
+        t1 = time.perf_counter()
+        print('- ' + str(t1-t2) + ' seconds needed for Generating')
 
-        end_time = time.perf_counter()
-        print('Finished generation. Needed Time: '+ str(end_time-start_time) + ' seconds')
-        return self.tokenizer.decode(sample_output[0], skip_special_tokens=True)
+        out = self.tokenizer.decode(sample_output[0], skip_special_tokens=True).split(' ')
+        t2 = time.perf_counter()
+        #print('- ' + str(t2-t1) + ' seconds needed for Decoding')
+
+        return out
     
+
+    def generate_multiple_options(self, pre, amount):
+        self.load_model()
+        pre_list = pre.split(' ')
+        print('- Started generating a sentence')
+        t1 = time.perf_counter()
+
+        input_ids = self.tokenizer.encode(pre, return_tensors='pt')
+        t2 = time.perf_counter()
+        #print('- ' + str(t2-t1) + ' seconds needed for Encoding')
+
+        sample_outputs = self.model.generate(
+            input_ids, 
+            do_sample=True,
+            min_length=len(pre_list)+3, 
+            max_length=len(pre_list)+8,
+            top_p=0.80, # sample only from 80% most likely words
+            top_k=50, # in adition set top_k to 50
+            num_return_sequences = amount
+        )
+        t1 = time.perf_counter()
+        print('- ' + str(t1-t2) + ' seconds needed for Generating')
+
+        out=list()
+        for sample_output in sample_outputs:
+            sample = self.tokenizer.decode(sample_output, skip_special_tokens=True).split(' ')
+            out.append(sample[len(pre_list):])
+        t2 = time.perf_counter()
+        #print('- ' + str(t2-t1) + ' seconds needed for Decoding')
+        
+        return out
+        
 
     def create_sentence(self, keywords, mock_sentence=False):
         self.sentence = []
         if mock_sentence or keywords == '':
             self.sentence = get_mock_sentence()
         else:
-            self.sentence = self.generate_sentence(keywords).replace('\n', ' ').split(' ')
-        print(self.sentence)
+            self.sentence = self.generate_sentence(keywords)
         return self.sentence
         
-    def getNext(self, i):
-        if i == -1:
-            self.index = 0
-            return ''
-        if self.index >= len(self.sentence):
-            return ''
-        else:
-            self.index += 1
-            return self.sentence[self.index-1]
         
     def getAt(self, i):
         if i == -1:
@@ -82,11 +112,9 @@ class Generator:
         else:
             return self.sentence[i]
 
-    def sentence_is_generated(self):
-        return len(self.sentence) > 0
 
 
-if __name__ == "__main__":
+def test1():
     g = Generator()
     answer = 'y'
     while answer == 'y':
@@ -95,3 +123,21 @@ if __name__ == "__main__":
             print(g.getAt(i))
         
         answer = input('You want to try again? (y)(n) ')
+
+def test2():
+    g = Generator()
+    g.load_model()
+    answer = ''
+    pre = 'I was playing with my dog'
+    while not answer == 'exit':
+        print(pre)
+        sentences = g.generate_multiple_options(pre, 3)
+        print('----- Choose:')
+        for i, sen in enumerate(sentences):
+            print('['+ str(i) + '] ', sen)
+        index = int(input())
+        for w in sentences[index]:
+            pre += ' ' + w
+
+if __name__ == "__main__":
+    test2()

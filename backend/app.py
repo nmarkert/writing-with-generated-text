@@ -22,6 +22,14 @@ def generate_sentence():
             'index': index}
 
 
+@app.route('/api/generate_options', methods=['POST'])
+def generate_options():
+    request_data = json.loads(request.data)
+    pre = request_data['pre_sentence']
+    amount = 3
+    return {'sentences': g.generate_multiple_options(pre, amount)}
+
+
 g.load_model()
 print('Everything is ready')
 app.run(debug=False)
