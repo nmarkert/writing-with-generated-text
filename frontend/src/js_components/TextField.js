@@ -53,7 +53,6 @@ export function TextField(props){
     <>
       <form onSubmit={handleSubmit}>
         <textarea id='field' type='text' className="TextField" value={s} onChange={handleTyping} disabled={props.disabled}></textarea>
-        <input type='submit' value='Apply' disabled={props.disabled}></input>
       </form>
     </>
   )
