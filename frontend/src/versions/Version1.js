@@ -5,10 +5,6 @@ import Baseline from './Baseline'
 
 class Version1 extends Baseline {
 
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return(
             <>
