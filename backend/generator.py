@@ -14,6 +14,13 @@ mock_sentences = [
 def get_mock_sentence():
     return mock_sentences[random.randint(0, len(mock_sentences)-1)].split(' ')
 
+def get_first_sentence(sen):
+    marks = ['.', '?', '!']
+    for i in range(len(sen)):
+        if len(set(sen[i]).intersection(marks)) > 0:
+            return sen[:i+1]
+    return sen
+
 
 class Generator:
     def __init__(self):
