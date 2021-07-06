@@ -1,5 +1,5 @@
 import { KeywordInput } from '../js_components/KeywordInput'
-import { TextField } from '../js_components/TextField'
+import TextField from '../js_components/TextField'
 import { OptionButtons } from '../js_components/OptionButtons'
 import Baseline from './Baseline'
 

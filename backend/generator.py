@@ -95,7 +95,7 @@ class Generator:
         out=list()
         for sample_output in sample_outputs:
             sample = self.tokenizer.decode(sample_output, skip_special_tokens=True).split(' ')
-            out.append(sample[len(pre_list):])
+            out.append(get_first_sentence(sample[len(pre_list):]))
         t2 = time.perf_counter()
         #print('- ' + str(t2-t1) + ' seconds needed for Decoding')
         

@@ -1,59 +1,64 @@
 import React from 'react';
-//import { Word } from './Word'
 import '../App.css';
 
-var intervalId = -1
+class TextField extends React.Component{
 
-export function TextField(props){
-  /*
-  function handleClick(index) {
-    console.log('Word \'' + sentence[index] + '\' was clicked.');
-  }
-  */
-
-  const handleTyping = (event) => {
-    event.preventDefault()
-    props.stop()
-    props.handle_typing(event.target.value)
-
-    if(intervalId !== -1) {
-      clearInterval(intervalId)
+  constructor(props) {
+    super(props)
+    this.state = {
+      intervalId: -1,
     }
-    intervalId = setInterval(apply_changes, 3000)
   }
 
-  const handleSubmit = (event) => {
+  handleTyping(event) {
+    event.preventDefault()
+    this.props.stop()
+    this.props.handle_typing(event.target.value)
+
+    if(this.state.intervalId !== -1) {
+      clearInterval(this.state.intervalId)
+    }
+    this.setState({intervalId: setInterval(this.apply_changes.bind(this), 3000)})
+  }
+
+  handleSubmit(event) {
     event.preventDefault()
     apply_changes()
   }
 
-  const apply_changes = () => {
-    if(intervalId !== -1) {
-      clearInterval(intervalId)
-      intervalId = -1
+  apply_changes() {
+    if(this.state.intervalId !== -1) {
+      clearInterval(this.state.intervalId)
+      this.setState({intervalId: -1})
     }
     let sentence = document.getElementById('field').value
-    props.on_submit(sentence)
+    this.props.on_submit(sentence)
   }
 
-  var s = '';
-  let i = 0;
-  for (let w of props.sentence) {
-    //s.push(<Word value={w} key={i} index={i} onClick={handleClick}/>);
-    s += w
-    if(i < props.sentence.length -1) {
-      s += ' '
-    }
-    i = i+1;
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId)
   }
-  //console.log(s)
 
   
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <textarea id='field' type='text' className="TextField" value={s} onChange={handleTyping} disabled={props.disabled}></textarea>
-      </form>
-    </>
-  )
+  render() {
+    let s = '';
+    let i = 0;
+    for (let w of this.props.sentence) {
+      s += w
+      if(i < this.props.sentence.length -1) {
+        s += ' '
+      }
+      i = i+1;
+    }
+
+    return (
+      <>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <textarea id='field' type='text' className="TextField" value={s} onChange={this.handleTyping.bind(this)} disabled={this.props.disabled}></textarea>
+        </form>
+      </>
+    );
+  }
 }
+
+export default TextField;

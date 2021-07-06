@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Version0 from "../versions/Version0";
 import Version1 from '../versions/Version1';
 import Version2 from '../versions/Version2';
-import Baseline from '../versions/Baseline';
 
 export function WritingPage(props) {
 
@@ -17,7 +17,7 @@ export function WritingPage(props) {
         vn = '2.1'
     }
     else {
-        v = <Baseline/>
+        v = <Version0/>
         vn = '0'
     }
 

@@ -15,6 +15,7 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/"> <StartingPage/> </Route>
+            <Route path="/version0"> <WritingPage version={0}/> </Route>
             <Route path="/version1"> <WritingPage version={1}/> </Route>
             <Route path="/version2"> <WritingPage version={2}/> </Route>
           </Switch>

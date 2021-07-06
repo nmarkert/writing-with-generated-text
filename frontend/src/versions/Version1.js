@@ -1,4 +1,4 @@
-import { TextField } from '../js_components/TextField'
+import TextField from '../js_components/TextField'
 import { KeywordInput } from '../js_components/KeywordInput'
 import { ControllButtons } from '../js_components/ControllButtons'
 import Baseline from './Baseline'
