@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from "react-router";
 import '../App.css';
 
 class TextField extends React.Component{
@@ -35,26 +36,38 @@ class TextField extends React.Component{
     this.props.on_submit(sentence)
   }
 
+  to_string(arr) {
+    let s = '';
+    for (let w of arr) {
+      s += w + ' '
+    }
+    return s.slice(0, -1) // To remove the last whitespace
+  }
+
   componentWillUnmount() {
     clearInterval(this.state.intervalId)
+
+    fetch('/api/task/store_result', {
+      method: 'POST',
+      body: JSON.stringify({
+          'result': this.to_string(this.props.sentence)
+      }),
+      headers: {
+          "Content-type": "aplication/json; charset=UTF-8"
+        }
+    })
   }
 
   
   render() {
-    let s = '';
-    let i = 0;
-    for (let w of this.props.sentence) {
-      s += w
-      if(i < this.props.sentence.length -1) {
-        s += ' '
-      }
-      i = i+1;
-    }
-
     return (
       <>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <textarea id='field' type='text' className="TextField" value={s} onChange={this.handleTyping.bind(this)} disabled={this.props.disabled}></textarea>
+          <textarea id='field' type='text' className="TextField" 
+                    value={this.to_string(this.props.sentence)} 
+                    onChange={this.handleTyping.bind(this)} 
+                    disabled={this.props.disabled}> 
+          </textarea>
         </form>
       </>
     );

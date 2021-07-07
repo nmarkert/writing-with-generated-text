@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { StartingPage } from './pages/StartingPage';
 import { WritingPage } from './pages/WritingPage';
+import { TaskPage } from './pages/TaskPage';
+import { ResultPage } from './pages/ResultPage';
 import './App.css';
 
 
@@ -15,9 +17,10 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/"> <StartingPage/> </Route>
-            <Route path="/version0"> <WritingPage version={0}/> </Route>
-            <Route path="/version1"> <WritingPage version={1}/> </Route>
-            <Route path="/version2"> <WritingPage version={2}/> </Route>
+            <Route path="/version:version"> <WritingPage/> </Route>
+            <Route exact path="/task:tid"> <TaskPage/> </Route>
+            <Route path="/task:tid/writing"> <WritingPage/> </Route>
+            <Route path="/task:tid/result"> <ResultPage/> </Route>
           </Switch>
         </Router>
       </div>
