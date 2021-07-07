@@ -11,6 +11,24 @@ import { TaskDisplay } from "../js_components/TaskDisplay";
 export function WritingPage() {
 
     const { version, tid } = useParams()
+    const [task, setTask] = useState([])
+
+
+    useEffect(() => {
+        if(tid) {
+            fetch(`/api/task/${tid}`)
+            .then(response => response.json())
+            .then(data => setTask(data))
+
+            fetch(`/api/task/${tid}/start_timer`)
+
+            return () => {
+                fetch(`/api/task/${tid}/end_timer`)
+            }
+        }   
+    }, [tid])
+
+
 
     const get_version = (vid) => {
         if(vid === 1) {
@@ -26,21 +44,7 @@ export function WritingPage() {
 
     if(tid) {
     // The page is called by a task id, so there is a specific task to this page
-        const { tid } = useParams()
-        const [task, setTask] = useState([])
 
-        useEffect(() => {
-            fetch(`/api/task/${tid}`)
-            .then(response => response.json())
-            .then(data => setTask(data))
-
-            fetch(`/api/task/${tid}/start_timer`)
-
-            return () => {
-                fetch(`/api/task/${tid}/end_timer`)
-            }
-        }, [tid])
-    
 
         return(
             <>

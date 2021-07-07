@@ -17,7 +17,7 @@ export function TaskPage(props) {
         <>
         <TaskDisplay task={task.desc}/>
         <div>
-            <h3> Method </h3>
+            <h3> Method: </h3>
             {task.method}
         </div>
         <div>

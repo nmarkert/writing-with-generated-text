@@ -1,5 +1,4 @@
 import React from 'react';
-import { useParams } from "react-router";
 import '../App.css';
 
 class TextField extends React.Component{
@@ -24,7 +23,7 @@ class TextField extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault()
-    apply_changes()
+    this.apply_changes()
   }
 
   apply_changes() {

@@ -3,10 +3,6 @@ import Baseline from './Baseline'
 
 class Version0 extends Baseline {
 
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return(
             <>
