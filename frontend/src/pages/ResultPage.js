@@ -15,7 +15,7 @@ export function ResultPage() {
         .then(data => setTask(data))
 
         return () => {
-
+            fetch(`/api/task/${tid}/store`)
         }
     }, [tid])
 
@@ -41,7 +41,7 @@ export function ResultPage() {
     }
 
     let link
-    if (parseInt(tid) !== 2) {
+    if (!task.last) {
         link = <Link to={'/task'+(parseInt(tid)+1)}> Next </Link>
     }
     else {

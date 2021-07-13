@@ -1,11 +1,13 @@
 from random import random
 from flask import Flask, Response, request, json
-import generator
-from taskmanager import tasks, Current
+from pyfiles.generator import Generator
+from pyfiles.taskmanager import tasks, fill_tasks, Current
+from pyfiles.datawriter import DataWriter
 
 app = Flask(__name__)
 
-g = generator.Generator()
+d = DataWriter()
+g = Generator()
 c = Current()
 
 
@@ -30,6 +32,13 @@ def generate_options():
     pre = request_data['pre_sentence']
     amount = 3
     return {'sentences': g.generate_multiple_options(pre, amount)}
+
+
+@app.route('/api/user/<int:uid>') 
+def set_user_id(uid):
+    fill_tasks(uid)
+    d.set_filenames(uid)
+    return '', 204
 
 
 @app.route('/api/task/<int:id>') 
@@ -61,7 +70,13 @@ def finished_task():
 @app.route('/api/task/<int:id>/rating', methods=['POST']) 
 def set_rating(id):
     request_data = json.loads(request.data)
-    tasks[id].set_result(request_data['rating'])
+    tasks[id].set_rating(0, request_data['rating'])
+    return '', 204
+
+@app.route('/api/task/<int:id>/store') 
+def store_task(id):
+    d.store_task(tasks[id])
+    d.store_ratings(tasks[id].ratings)
     return '', 204
 
 
