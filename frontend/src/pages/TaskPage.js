@@ -18,7 +18,7 @@ export function TaskPage(props) {
         <TaskDisplay task={task.desc}/>
         <div>
             <h3> Method: </h3>
-            {task.method}
+            {task.method_name}
         </div>
         <div>
             <Link to={'/task'+tid+'/writing'}> Start </Link>

@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export function StartingPage(props) {
+
+    const [disabled, setDisabled] = useState(true)
 
     const handleSubmit = (event) => {
         event.preventDefault()
         let uid = document.getElementById('uid_input').value
         fetch(`/api/user/${uid}`)
+        setDisabled(false)
+    }
+
+    let li
+    if (disabled) {
+        li = <label> Tasks </label>
+    }
+    else {
+        li = <Link to='/task0'> Tasks </Link>
     }
 
     return(
@@ -26,7 +37,7 @@ export function StartingPage(props) {
         <li> <Link to='/version2'> Version2 </Link> </li>
 
         <h2> Start with tasks </h2>
-        <Link to='/task0'> Tasks </Link>
+        {li}
         </>
     )
 }

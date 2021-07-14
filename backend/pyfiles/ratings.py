@@ -1,6 +1,9 @@
 questions = [
     'I am satisfied with my result.',
-    'It was easy for me to write the text.'
+    'It was easy for me to write the text.',
+    'The interaction method was suitable for this task.',
+    'The interaction method helped me writing the text.',
+    'The interaction method influenced the wording of the text.'
 ]
 
 class Ratings:

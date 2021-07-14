@@ -1,6 +1,12 @@
 import time
 from pyfiles.ratings import Ratings
 
+method_names = {
+    0: 'Standard textfield',
+    1: 'Continuous generated text',
+    2: 'Writing with suggestions'
+}
+
 class Task:
 
     def __init__(self, id, desc, method):
@@ -16,7 +22,8 @@ class Task:
     def to_json(self):
         return {
             'desc': self.desc,
-            'method': self.method,
+            'method_name': method_names[self.method],
+            'method_id': self.method,
             'result': self.result,
             'last': self.last
         }
@@ -51,10 +58,10 @@ class Task:
     
 
 # Concrete Task
-T1 = 'Write an email ....' 
+T1 = 'It\'s your friends birthday. Write him an email to wish him all the best and mention that you have to meet again in some time.' 
 
 # Open Task
-T2 = 'Write a blog post ....'
+T2 = 'Write a short story about your last or upcomming vacation.'
 
 tasks = list()
 

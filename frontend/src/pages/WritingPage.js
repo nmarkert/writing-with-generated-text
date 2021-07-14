@@ -50,7 +50,7 @@ export function WritingPage() {
             <>
             <TaskDisplay task={task.desc} />
             <div>
-                {get_version(task.method)}
+                {get_version(task.method_id)}
             </div>
             <div>
                 <Link to={'/task'+tid+'/result'}> Finish </Link>
