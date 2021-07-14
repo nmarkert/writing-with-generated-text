@@ -1,5 +1,5 @@
 import time
-from ratings import Ratings
+from pyfiles.ratings import Ratings
 
 class Task:
 
@@ -11,6 +11,7 @@ class Task:
         self.ratings = Ratings(self.id)
         self.last = False # Flag if the task is the last one
         self.t_start, self.t_end = None, None
+        self.time_generating = 0
 
     def to_json(self):
         return {
@@ -26,6 +27,9 @@ class Task:
     def end_timer(self):
         self.t_end = time.perf_counter()
 
+    def add_generating_time(self, t):
+        self.time_generating += t
+
     def needed_time(self):
         if self.t_start != None and self.t_end != None:
             return self.t_end - self.t_start
@@ -38,8 +42,12 @@ class Task:
     def set_rating(self, quest, rating):
         self.ratings.set_rating(quest, rating)
 
+    def set_backspaces(self, backspaces):
+        self.amount_backspaces = backspaces
+
     def to_csv(self):
-        return str(self.id) + ';' + self.desc + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' + str(self.needed_time())
+        return str(self.id) + ';' + self.desc + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
+                + str(self.needed_time()) + ';' + str(self.time_generating) + ';' + str(self.amount_backspaces)
     
 
 # Concrete Task

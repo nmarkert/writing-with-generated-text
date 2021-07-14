@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
+import './ResultPage.css'
 
 import { TaskDisplay } from "../js_components/TaskDisplay";
 
@@ -8,19 +9,24 @@ export function ResultPage() {
 
     const { tid } = useParams()
     const [task, setTask] = useState([])
+    const [quests, setQuests] = useState([])
 
     useEffect(() => {
         fetch(`/api/task/${tid}`)
         .then(response => response.json())
         .then(data => setTask(data))
 
+        fetch(`/api/questions`)
+        .then(response => response.json())
+        .then(data => setQuests(data.questions))
+
         return () => {
             fetch(`/api/task/${tid}/store`)
         }
     }, [tid])
 
-    const handle_change = (event) => {
-        const rbs = document.getElementsByName('rating');
+    const handle_change = (i) => {
+        const rbs = document.getElementsByName('rating'+i);
         let selectedValue = 0;
         for (const rb of rbs) {
             if (rb.checked) {
@@ -32,6 +38,7 @@ export function ResultPage() {
         fetch(`/api/task/${tid}/rating`, {
             method: 'POST',
             body: JSON.stringify({
+                'index' : i,
                 'rating': parseInt(selectedValue)
             }),
             headers: {
@@ -39,6 +46,20 @@ export function ResultPage() {
               }
           })
     }
+
+    let questions = []
+    for(let i=0; i<quests.length; i++) {
+        questions.push(
+            <form onChange={() => handle_change(i)} key={i}>
+                <label className='questionlabel'> {quests[i]} </label> <br/>
+                <label className='radiolabel'><input type="radio" name={'rating'+i} value={1} /> Strongly disagree </label>
+                <label className='radiolabel'><input type="radio" name={'rating'+i} value={2} /> Disagree </label>
+                <label className='radiolabel'><input type="radio" name={'rating'+i} value={3} /> Neither agr. nor disagr. </label>
+                <label className='radiolabel'><input type="radio" name={'rating'+i} value={4} /> Agree </label>
+                <label className='radiolabel'><input type="radio" name={'rating'+i} value={5} /> Strongly agree </label>
+            </form>)
+    }
+
 
     let link
     if (!task.last) {
@@ -56,14 +77,8 @@ export function ResultPage() {
             {task.result}
         </div>        
         <div>
-            <h3> How satisfied are you with your text? </h3>
-                <form onChange={handle_change}>
-                    <input type="radio" name="rating" value={1} /> not at all
-                    <input type="radio" name="rating" value={2} /> 
-                    <input type="radio" name="rating" value={3} /> 
-                    <input type="radio" name="rating" value={4} /> 
-                    <input type="radio" name="rating" value={5} /> very
-                </form>
+            <h3> Questions </h3>
+            {questions}
         </div>
         <div>
             {link}

@@ -1,8 +1,8 @@
-from random import random
-from flask import Flask, Response, request, json
+from flask import Flask, request, json
 from pyfiles.generator import Generator
 from pyfiles.taskmanager import tasks, fill_tasks, Current
 from pyfiles.datawriter import DataWriter
+from pyfiles.ratings import questions
 
 app = Flask(__name__)
 
@@ -15,14 +15,12 @@ c = Current()
 def generate_sentence():
     request_data = json.loads(request.data)
     sentence = request_data['content']
-    print(sentence)
-    if sentence == '':
-        index = 0
-        mock = True
-    else:
-        index = len(sentence.split(' '))
-        mock = False
-    return {'sentence': g.create_sentence(sentence, mock),
+
+    index = len(sentence.split(' '))
+    sen, t = g.generate_sentence(sentence)
+    tasks[c.get_curr()].add_generating_time(t)
+
+    return {'sentence': sen,
             'index': index}
 
 
@@ -31,7 +29,9 @@ def generate_options():
     request_data = json.loads(request.data)
     pre = request_data['pre_sentence']
     amount = 3
-    return {'sentences': g.generate_multiple_options(pre, amount)}
+    sen, t = g.generate_multiple_options(pre, amount)
+    tasks[c.get_curr()].add_generating_time(t)
+    return {'sentences': sen}
 
 
 @app.route('/api/user/<int:uid>') 
@@ -39,6 +39,11 @@ def set_user_id(uid):
     fill_tasks(uid)
     d.set_filenames(uid)
     return '', 204
+
+
+@app.route('/api/questions')
+def get_questions():
+    return {'questions': questions}
 
 
 @app.route('/api/task/<int:id>') 
@@ -56,7 +61,6 @@ def start_timer(id):
 @app.route('/api/task/<int:id>/end_timer') 
 def end_timer(id):
     tasks[id].end_timer()
-    print(tasks[id].needed_time())
     return '', 204
 
 
@@ -64,13 +68,14 @@ def end_timer(id):
 def finished_task():
     request_data = json.loads(request.data)
     tasks[c.get_curr()].set_result(request_data['result'])
+    tasks[c.get_curr()].set_backspaces(request_data['amount_back'])
     return '', 204
 
 
 @app.route('/api/task/<int:id>/rating', methods=['POST']) 
 def set_rating(id):
     request_data = json.loads(request.data)
-    tasks[id].set_rating(0, request_data['rating'])
+    tasks[id].set_rating(request_data['index'], request_data['rating'])
     return '', 204
 
 @app.route('/api/task/<int:id>/store') 

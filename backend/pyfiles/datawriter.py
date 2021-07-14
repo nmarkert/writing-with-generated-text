@@ -1,6 +1,6 @@
 import os, os.path
 import time
-from ratings import questions
+from pyfiles.ratings import questions
 PATH = os.getcwd()
 
 
@@ -21,16 +21,17 @@ class DataWriter:
     # Everything for the tasks file ----------------------
     def set_tasks_filename(self, uid):
         self.TASKS_FILENAME = self.DATA_DIR + '/' + str(uid) + '-tasks.csv'
-        self.write_tasks_fileheader()
 
     def write_tasks_fileheader(self):
+        self.create_data_dir()
         if os.path.isfile(self.TASKS_FILENAME):
             return
-        header = 'time;taskid;description;method;result;needed_time\n'
+        header = 'time;taskid;description;method;result;needed_time;time_generating;backspaces\n'
         with open(self.TASKS_FILENAME, 'w') as f:
             f.write(header)
         
     def store_task(self, task):
+        self.write_tasks_fileheader()
         with open(self.TASKS_FILENAME, 'a') as f:
             f.write(time.ctime() + ';' + task.to_csv() + '\n')
     
@@ -38,9 +39,9 @@ class DataWriter:
     # Everything for the ratings file ----------------------
     def set_ratings_filename(self, uid):
         self.RATINGS_FILENAME = self.DATA_DIR + '/' + str(uid) + '-ratings.csv'
-        self.write_ratings_fileheader()
 
     def write_ratings_fileheader(self):
+        self.create_data_dir()
         if os.path.isfile(self.RATINGS_FILENAME):
             return
         header = 'taskid;'
@@ -51,5 +52,6 @@ class DataWriter:
             f.write(header)
         
     def store_ratings(self, ratings):
+        self.write_ratings_fileheader()
         with open(self.RATINGS_FILENAME, 'a') as f:
             f.write(ratings.to_csv() + '\n')

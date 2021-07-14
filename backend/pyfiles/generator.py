@@ -48,8 +48,6 @@ class Generator:
         t1 = time.perf_counter()
 
         input_ids = self.tokenizer.encode(keywords, return_tensors='pt')
-        t2 = time.perf_counter()
-        #print('- ' + str(t2-t1) + ' seconds needed for Encoding')
 
         sample_output = self.model.generate(
             input_ids, 
@@ -60,14 +58,15 @@ class Generator:
             top_k=50, # in adition set top_k to 50
             num_return_sequences = 1,
         )
-        t1 = time.perf_counter()
-        print('- ' + str(t1-t2) + ' seconds needed for Generating')
-
+        
+       
         out = self.tokenizer.decode(sample_output[0], skip_special_tokens=True).split(' ')
+        
         t2 = time.perf_counter()
-        #print('- ' + str(t2-t1) + ' seconds needed for Decoding')
+        time_needed = t2-t1
+        print('- ' + str(time_needed) + ' seconds needed for Generating')
 
-        return out
+        return out, time_needed
     
 
     def generate_multiple_options(self, pre, amount):
@@ -77,8 +76,6 @@ class Generator:
         t1 = time.perf_counter()
 
         input_ids = self.tokenizer.encode(pre, return_tensors='pt')
-        t2 = time.perf_counter()
-        #print('- ' + str(t2-t1) + ' seconds needed for Encoding')
 
         sample_outputs = self.model.generate(
             input_ids, 
@@ -89,17 +86,17 @@ class Generator:
             top_k=50, # in adition set top_k to 50
             num_return_sequences = amount
         )
-        t1 = time.perf_counter()
-        print('- ' + str(t1-t2) + ' seconds needed for Generating')
 
         out=list()
         for sample_output in sample_outputs:
             sample = self.tokenizer.decode(sample_output, skip_special_tokens=True).split(' ')
             out.append(get_first_sentence(sample[len(pre_list):]))
-        t2 = time.perf_counter()
-        #print('- ' + str(t2-t1) + ' seconds needed for Decoding')
         
-        return out
+        t2 = time.perf_counter()
+        time_needed = t2-t1
+        print('- ' + str(time_needed) + ' seconds needed for Generating')
+        
+        return out, time_needed
         
 
     def create_sentence(self, keywords, mock_sentence=False):
@@ -107,7 +104,7 @@ class Generator:
         if mock_sentence or keywords == '':
             self.sentence = get_mock_sentence()
         else:
-            self.sentence = self.generate_sentence(keywords)
+            self.sentence = self.generate_sentence(keywords)[0]
         return self.sentence
         
         

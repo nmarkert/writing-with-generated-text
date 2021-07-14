@@ -17,7 +17,7 @@ export function KeywordInput(props) {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input type='text' id='input' disabled={props.disabled}></input>
+                <input type='text' id='input' disabled={props.disabled} required></input>
                 <input type='submit' value='Generate' disabled={props.disabled}></input>
             </form>
             <label id='status_lbl'> {lbl} </label>
