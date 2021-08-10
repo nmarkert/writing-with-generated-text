@@ -1,6 +1,7 @@
+import re
 from flask import Flask, request, json
 from pyfiles.generator import Generator
-from pyfiles.taskmanager import tasks, fill_tasks, Current
+from pyfiles.taskmanager import tasks, fill_tasks, Current, SURVEY_LINK
 from pyfiles.datawriter import DataWriter
 from pyfiles.ratings import questions
 
@@ -83,6 +84,10 @@ def store_task(id):
     d.store_task(tasks[id])
     d.store_ratings(tasks[id].ratings)
     return '', 204
+
+@app.route('/api/survey_link')
+def get_survey_link():
+    return {'link': SURVEY_LINK}
 
 
 #g.load_model()

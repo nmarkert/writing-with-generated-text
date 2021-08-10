@@ -1,6 +1,8 @@
 import time
 from pyfiles.ratings import Ratings
 
+SURVEY_LINK = 'https://www.google.de/'
+
 method_names = {
     0: 'Standard textfield',
     1: 'Continuous generated text',
@@ -61,7 +63,7 @@ class Task:
 T1 = 'It\'s your friends birthday. Write him an email to wish him all the best and mention that you have to meet again in some time.' 
 
 # Open Task
-T2 = 'Write a short story about your last or upcomming vacation.'
+T2 = 'Write a short story about your last or upcoming vacation.'
 
 tasks = list()
 

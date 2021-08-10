@@ -5,6 +5,8 @@ import { StartingPage } from './pages/StartingPage';
 import { WritingPage } from './pages/WritingPage';
 import { TaskPage } from './pages/TaskPage';
 import { ResultPage } from './pages/ResultPage';
+import { FinishPage } from './pages/FinishPage';
+
 import './App.css';
 
 
@@ -21,6 +23,7 @@ class App extends React.Component {
             <Route exact path="/task:tid"> <TaskPage/> </Route>
             <Route path="/task:tid/writing"> <WritingPage/> </Route>
             <Route path="/task:tid/result"> <ResultPage/> </Route>
+            <Route path="/finished"> <FinishPage/> </Route>
           </Switch>
         </Router>
       </div>

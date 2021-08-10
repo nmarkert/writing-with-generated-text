@@ -66,7 +66,7 @@ export function ResultPage() {
         link = <Link to={'/task'+(parseInt(tid)+1)}> Next </Link>
     }
     else {
-        link = <Link to='/'> Home </Link>
+        link = <Link to='/finished'> Finish </Link>
     }
 
     return(
