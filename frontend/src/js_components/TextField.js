@@ -15,6 +15,17 @@ class TextField extends React.Component{
     event.preventDefault()
     this.props.stop()
 
+    fetch('/api/task/log_input', {
+      method: 'POST',
+      body: JSON.stringify({
+          'sentence': event.target.value
+      }),
+      headers: {
+          "Content-type": "aplication/json; charset=UTF-8"
+        }
+    })
+
+    // Count Backspaces
     if(this.to_string(this.props.sentence).length > event.target.value.length)
     {
       this.setState({

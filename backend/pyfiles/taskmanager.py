@@ -1,5 +1,6 @@
 import time
 from pyfiles.ratings import Ratings
+from pyfiles.logger import InputLogger
 
 SURVEY_LINK = 'https://www.google.de/'
 
@@ -17,6 +18,7 @@ class Task:
         self.method = method
         self.result = str()
         self.ratings = Ratings(self.id)
+        self.logger = InputLogger(self.id)
         self.last = False # Flag if the task is the last one
         self.t_start, self.t_end = None, None
         self.time_generating = 0
@@ -53,6 +55,9 @@ class Task:
 
     def set_backspaces(self, backspaces):
         self.amount_backspaces = backspaces
+    
+    def log(self, sen):
+        self.logger.log_sen(sen)
 
     def to_csv(self):
         return str(self.id) + ';' + self.desc + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
@@ -94,9 +99,17 @@ def add_task(desc, method):
 class Current:
     def __init__(self):
         self.id = 0
+        self.active = False
     
     def set_curr(self, curr):
         self.id = curr
+        self.active = True
     
+    def not_active(self):
+        self.active = False
+
     def get_curr(self):
-        return self.id
+        if self.active:
+            return self.id
+        else:
+            return None

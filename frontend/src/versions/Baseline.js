@@ -147,8 +147,6 @@ class Baseline extends React.Component {
           this.redoGeneration()
         }
     
-        console.log(pre)
-    
         fetch('/api/generate_options', {
           method: 'POST',
           body: JSON.stringify({
@@ -167,7 +165,6 @@ class Baseline extends React.Component {
       }
     
       option_choosed(opt_idx) {
-        console.log(opt_idx)
         let pre_l = this.state.full_sen.concat(this.state.sen_options[opt_idx])
         this.setState({
           full_sen: pre_l,

@@ -19,7 +19,8 @@ def generate_sentence():
 
     index = len(sentence.split(' '))
     sen, t = g.generate_sentence(sentence)
-    tasks[c.get_curr()].add_generating_time(t)
+    if c.get_curr() != None:
+        tasks[c.get_curr()].add_generating_time(t)
 
     return {'sentence': sen,
             'index': index}
@@ -29,16 +30,19 @@ def generate_sentence():
 def generate_options():
     request_data = json.loads(request.data)
     pre = request_data['pre_sentence']
+    if c.get_curr() != None:
+        tasks[c.get_curr()].log(pre)
     amount = 3
     sen, t = g.generate_multiple_options(pre, amount)
-    tasks[c.get_curr()].add_generating_time(t)
+    if c.get_curr() != None:
+        tasks[c.get_curr()].add_generating_time(t)
     return {'sentences': sen}
 
 
 @app.route('/api/user/<int:uid>') 
 def set_user_id(uid):
     fill_tasks(uid)
-    d.set_filenames(uid)
+    d.set_user_id(uid)
     return '', 204
 
 
@@ -68,8 +72,17 @@ def end_timer(id):
 @app.route('/api/task/store_result', methods=['POST']) 
 def finished_task():
     request_data = json.loads(request.data)
-    tasks[c.get_curr()].set_result(request_data['result'])
-    tasks[c.get_curr()].set_backspaces(request_data['amount_back'])
+    if c.get_curr() != None:
+        tasks[c.get_curr()].set_result(request_data['result'])
+        tasks[c.get_curr()].set_backspaces(request_data['amount_back'])
+    return '', 204
+
+
+@app.route('/api/task/log_input', methods=['POST'])
+def log_input():
+    request_data = json.loads(request.data)
+    if c.get_curr() != None:
+        tasks[c.get_curr()].log(request_data['sentence'])
     return '', 204
 
 
@@ -79,15 +92,21 @@ def set_rating(id):
     tasks[id].set_rating(request_data['index'], request_data['rating'])
     return '', 204
 
+
 @app.route('/api/task/<int:id>/store') 
 def store_task(id):
     d.store_task(tasks[id])
     d.store_ratings(tasks[id].ratings)
+    d.write_log(tasks[id].id, tasks[id].logger.get_log())
+    c.not_active()
     return '', 204
+
 
 @app.route('/api/survey_link')
 def get_survey_link():
     return {'link': SURVEY_LINK}
+
+
 
 
 #g.load_model()
