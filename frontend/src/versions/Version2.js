@@ -6,6 +6,7 @@ import Baseline from './Baseline'
 class Version2 extends Baseline {
 
     render() {
+        this.props.set_length(this.state.sentence.length)
         return(
             <>
             <div>

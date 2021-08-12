@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import { WordCount } from '../pages/WritingPage';
 
 class TextField extends React.Component{
 
@@ -32,7 +33,6 @@ class TextField extends React.Component{
         amountBack: this.state.amountBack+1
       })
     }
-
     this.props.handle_typing(event.target.value)
 
     if(this.state.intervalId !== -1) {

@@ -1,9 +1,9 @@
-import re
 from flask import Flask, request, json
 from pyfiles.generator import Generator
-from pyfiles.taskmanager import tasks, fill_tasks, Current, SURVEY_LINK
+from pyfiles.taskmanager import tasks, fill_tasks, Current
 from pyfiles.datawriter import DataWriter
 from pyfiles.ratings import questions
+from pyfiles.constants import SURVEY_LINK, AMOUNT_SUGGESTIONS
 
 app = Flask(__name__)
 
@@ -32,8 +32,7 @@ def generate_options():
     pre = request_data['pre_sentence']
     if c.get_curr() != None:
         tasks[c.get_curr()].log(pre)
-    amount = 3
-    sen, t = g.generate_multiple_options(pre, amount)
+    sen, t = g.generate_multiple_options(pre, AMOUNT_SUGGESTIONS)
     if c.get_curr() != None:
         tasks[c.get_curr()].add_generating_time(t)
     return {'sentences': sen}

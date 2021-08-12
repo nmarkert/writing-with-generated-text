@@ -7,12 +7,13 @@ import Version1 from '../versions/Version1';
 import Version2 from '../versions/Version2';
 import { TaskDisplay } from "../js_components/TaskDisplay";
 
+export var WordCount = -1
 
 export function WritingPage() {
 
     const { version, tid } = useParams()
     const [task, setTask] = useState([])
-
+    const [textLength, setTLength] = useState(0)
 
     useEffect(() => {
         if(tid) {
@@ -28,23 +29,28 @@ export function WritingPage() {
         }   
     }, [tid])
 
-
-
     const get_version = (vid) => {
         if(vid === 1) {
-            return <Version1/>
+            return <Version1 set_length={setTLength}/>
         }
         else if (vid === 2) {
-            return <Version2/>
+            return <Version2 set_length={setTLength}/>
         }
         else {
-            return <Version0/>
+            return <Version0 set_length={setTLength}/>
         }
     }
 
     if(tid) {
     // The page is called by a task id, so there is a specific task to this page
 
+        let li
+        if (textLength < 10) {
+            li = <label> Finish </label>
+        }
+        else {
+            li = <Link to={'/task'+tid+'/result'}> Finish </Link>
+        }
 
         return(
             <>
@@ -53,13 +59,14 @@ export function WritingPage() {
                 {get_version(task.method_id)}
             </div>
             <div>
-                <Link to={'/task'+tid+'/result'}> Finish </Link>
+                { li }
             </div>
             </>
         )
     }
     else {
     // The page is called by version, so this is free use with no specific task    
+
         return(
             <>
             <div>

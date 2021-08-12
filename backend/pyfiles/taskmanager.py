@@ -1,14 +1,7 @@
 import time
 from pyfiles.ratings import Ratings
 from pyfiles.logger import InputLogger
-
-SURVEY_LINK = 'https://www.google.de/'
-
-method_names = {
-    0: 'Standard textfield',
-    1: 'Continuous generated text',
-    2: 'Writing with suggestions'
-}
+from pyfiles.constants import TASK1, TASK2, method_names
 
 class Task:
 
@@ -64,17 +57,11 @@ class Task:
                 + str(self.needed_time()) + ';' + str(self.time_generating) + ';' + str(self.amount_backspaces)
     
 
-# Concrete Task
-T1 = 'It\'s your friends birthday. Write him an email to wish him all the best and mention that you have to meet again in some time.' 
-
-# Open Task
-T2 = 'Write a short story about your last or upcoming vacation.'
-
 tasks = list()
 
 def fill_tasks(uid):
-    order_tasks = [[T1, T2], 
-                   [T2, T1]]
+    order_tasks = [[TASK1, TASK2], 
+                   [TASK2, TASK1]]
     order_methods = [[0, 1, 2],
                      [2, 0, 1],
                      [1, 2, 0]]
