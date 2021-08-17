@@ -1,7 +1,7 @@
 import time
 from pyfiles.ratings import Ratings
 from pyfiles.logger import InputLogger
-from pyfiles.constants import TASK1, TASK2, method_names
+from pyfiles.constants import TASK1, TASK2, method_names, MIN_TEXT_LENGTH
 
 class Task:
 
@@ -22,7 +22,8 @@ class Task:
             'method_name': method_names[self.method],
             'method_id': self.method,
             'result': self.result,
-            'last': self.last
+            'last': self.last,
+            'min_len': MIN_TEXT_LENGTH
         }
     
     def start_timer(self):
@@ -45,16 +46,13 @@ class Task:
     
     def set_rating(self, quest, rating):
         self.ratings.set_rating(quest, rating)
-
-    def set_backspaces(self, backspaces):
-        self.amount_backspaces = backspaces
     
     def log(self, sen):
         self.logger.log_sen(sen)
 
     def to_csv(self):
         return str(self.id) + ';' + self.desc + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
-                + str(self.needed_time()) + ';' + str(self.time_generating) + ';' + str(self.amount_backspaces)
+                + str(self.needed_time()) + ';' + str(self.time_generating)
     
 
 tasks = list()
@@ -71,7 +69,7 @@ def fill_tasks(uid):
     for task in order_tasks[uid%2]:
         for method in order_methods[uid%3]:
             tasks.append(
-                Task(int(str(uid)+str(i)), task, method)
+                Task(str(uid)+str(i), task, method)
             )
             i += 1
     tasks[-1].last = True

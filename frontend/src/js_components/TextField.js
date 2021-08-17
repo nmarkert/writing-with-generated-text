@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.css';
-import { WordCount } from '../pages/WritingPage';
 
 class TextField extends React.Component{
 
@@ -16,6 +15,8 @@ class TextField extends React.Component{
     event.preventDefault()
     this.props.stop()
 
+    this.props.set_len(event.target.value.split(' ').length)
+
     fetch('/api/task/log_input', {
       method: 'POST',
       body: JSON.stringify({
@@ -26,19 +27,12 @@ class TextField extends React.Component{
         }
     })
 
-    // Count Backspaces
-    if(this.to_string(this.props.sentence).length > event.target.value.length)
-    {
-      this.setState({
-        amountBack: this.state.amountBack+1
-      })
-    }
     this.props.handle_typing(event.target.value)
 
     if(this.state.intervalId !== -1) {
       clearInterval(this.state.intervalId)
     }
-    this.setState({intervalId: setInterval(this.apply_changes.bind(this), 3000)})
+    this.setState({intervalId: setInterval(this.apply_changes.bind(this), 4000)})
   }
 
   handleSubmit(event) {
@@ -69,8 +63,7 @@ class TextField extends React.Component{
     fetch('/api/task/store_result', {
       method: 'POST',
       body: JSON.stringify({
-          'result': this.to_string(this.props.sentence),
-          'amount_back': this.state.amountBack
+          'result': this.to_string(this.props.sentence)
       }),
       headers: {
           "Content-type": "aplication/json; charset=UTF-8"

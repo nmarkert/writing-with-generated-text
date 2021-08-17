@@ -7,7 +7,6 @@ import Version1 from '../versions/Version1';
 import Version2 from '../versions/Version2';
 import { TaskDisplay } from "../js_components/TaskDisplay";
 
-export var WordCount = -1
 
 export function WritingPage() {
 
@@ -45,22 +44,21 @@ export function WritingPage() {
     // The page is called by a task id, so there is a specific task to this page
 
         let li
-        if (textLength < 10) {
-            li = <label> Finish </label>
+        if (textLength <= task.min_len) {
+            li = <label className='link'> Finish </label>
         }
         else {
-            li = <Link to={'/task'+tid+'/result'}> Finish </Link>
+            li = <Link to={'/task'+tid+'/result'} className='link'> Finish </Link>
         }
 
         return(
             <>
             <TaskDisplay task={task.desc} />
-            <div>
-                {get_version(task.method_id)}
-            </div>
-            <div>
-                { li }
-            </div>
+            
+            {get_version(task.method_id)}
+
+            <div className='divider'/> 
+            { li }
             </>
         )
     }

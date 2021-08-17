@@ -18,12 +18,12 @@ class Version1 extends Baseline {
                 />
             </div>
             <div>
-                Generated Text: 
                 <TextField 
                     stop={this.stopClock}
                     on_submit={this.new_generation} 
                     sentence={this.state.sentence} 
                     handle_typing={this.handle_typing}
+                    set_len={()=>{}}
                     disabled={this.state.isGenerating}
                 />
             </div>

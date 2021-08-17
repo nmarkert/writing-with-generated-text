@@ -1,8 +1,8 @@
 # Link to survey
-SURVEY_LINK = 'https://www.google.de/' #TODO has to be replaced with the real link
+SURVEY_LINK = 'https://hciaitools.uni-bayreuth.de/surveys/index.php/377687?lang=en'
 
 # Minimum text length that has to be written in one task (in words)
-MIN_TEXT_LENGTH = 0 #TODO has to be replaced with a real value; 0 is just for testing
+MIN_TEXT_LENGTH = 20
 
 # The amount of displayed suggestions (for Version2)
 AMOUNT_SUGGESTIONS = 3

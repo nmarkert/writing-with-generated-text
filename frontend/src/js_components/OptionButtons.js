@@ -13,6 +13,14 @@ export function OptionButtons(props) {
         </div>
         )
     }
+    if (props.sentence_options.length > 0) {
+        buttons.push(
+            <div className='smallSpace'/>
+        )
+        buttons.push(
+            <button onClick={props.generate_new}> New Options </button>
+        )
+    }
 
     return(
         <>

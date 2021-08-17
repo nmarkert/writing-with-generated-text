@@ -2,7 +2,6 @@
 # https://huggingface.co/blog/how-to-generate
 import random
 import time
-import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 mock_sentences = [
@@ -44,6 +43,7 @@ class Generator:
 
     def generate_sentence(self, keywords):
         self.load_model()
+        klen = len(keywords.split(' '))
         print('Started generating a sentence')
         t1 = time.perf_counter()
 
@@ -52,8 +52,8 @@ class Generator:
         sample_output = self.model.generate(
             input_ids, 
             do_sample=True,
-            min_length=40, 
-            max_length=60,
+            min_length=klen+30, 
+            max_length=klen+50,
             top_p=0.80, # sample only from 80% most likely words
             top_k=50, # in adition set top_k to 50
             num_return_sequences = 1,
@@ -80,10 +80,10 @@ class Generator:
         sample_outputs = self.model.generate(
             input_ids, 
             do_sample=True,
-            min_length=len(pre_list)+5, 
-            max_length=len(pre_list)+10,
+            min_length=len(pre_list)+3, 
+            max_length=len(pre_list)+12,
             top_p=0.80, # sample only from 80% most likely words
-            top_k=50, # in adition set top_k to 50
+            top_k=70,
             num_return_sequences = amount
         )
 

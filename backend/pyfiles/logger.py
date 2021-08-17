@@ -1,5 +1,6 @@
 import time
 import pandas as pd
+import difflib as dl
 
 class InputLogger:
     def __init__(self, tid):
@@ -9,8 +10,13 @@ class InputLogger:
     
     #TODO maybe better calculate what was typed
     def get_action(self, old_sen, new_sen):
-        if len(new_sen) > len(old_sen):
-            return new_sen[len(old_sen):]
+        if len(new_sen) >= len(old_sen):
+            #return new_sen[len(old_sen):]
+            d = ''
+            for li in dl.ndiff(old_sen, new_sen):
+                if li[0] == '+':
+                    d += li[-1]
+            return d
         elif len(new_sen) < len(old_sen):
             return 'BACK'
         else:
@@ -18,9 +24,15 @@ class InputLogger:
 
     def log_sen(self, sen):
         t = time.localtime()
-        ts = str(t.tm_hour) + ':' + str(t.tm_min) + ':' + str(t.tm_sec)
+        ts = ''
+        for i in [t.tm_hour, t.tm_min, t.tm_sec]:
+            if i < 10:
+                ts += '0'
+            ts += str(i) + ':'
+        ts = ts[:-1]
         perft = time.perf_counter()
         act = self.get_action(self.curr_sen, sen)
+        act = act.replace('\n','\\n').replace(';',',')
         if act == ' ':
             act = 'SPACE'
         self.curr_sen = sen

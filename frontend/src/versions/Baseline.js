@@ -24,6 +24,7 @@ class Baseline extends React.Component {
         this.generate_options = this.generate_options.bind(this);
         this.handle_typing = this.handle_typing.bind(this);
         this.option_choosed = this.option_choosed.bind(this);
+        this.new_options = this.new_options.bind(this);
       }
     
       tick() {
@@ -181,6 +182,23 @@ class Baseline extends React.Component {
         }
         this.startClock()
         this.generate_options(pre_sen, false)
+      }
+
+      new_options() {
+        this.setState({
+          sen_options: [],
+        })
+        let pre_l = this.state.full_sen
+        let pre_sen = ''
+        let i = 0
+        for (let w of pre_l) {
+          pre_sen += w
+          if(i < pre_l.length-1) {
+            pre_sen += ' '
+          }
+          i++
+        }
+        this.generate_options(pre_sen)
       }
     
     

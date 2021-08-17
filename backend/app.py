@@ -73,7 +73,6 @@ def finished_task():
     request_data = json.loads(request.data)
     if c.get_curr() != None:
         tasks[c.get_curr()].set_result(request_data['result'])
-        tasks[c.get_curr()].set_backspaces(request_data['amount_back'])
     return '', 204
 
 
@@ -107,7 +106,5 @@ def get_survey_link():
 
 
 
-
 #g.load_model()
-print('Everything is ready')
 app.run(debug=False)

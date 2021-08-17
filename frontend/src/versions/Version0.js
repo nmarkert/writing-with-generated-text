@@ -4,7 +4,6 @@ import Baseline from './Baseline'
 class Version0 extends Baseline {
 
     render() {
-        this.props.set_length(this.state.sentence.length)
         return(
             <>
             <div>
@@ -13,6 +12,7 @@ class Version0 extends Baseline {
                     on_submit={() => {}} 
                     sentence={this.state.sentence} 
                     handle_typing={this.handle_typing}
+                    set_len={this.props.set_length}
                     disabled={false}
                 />
             </div>

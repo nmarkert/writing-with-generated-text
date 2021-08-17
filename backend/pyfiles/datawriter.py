@@ -29,7 +29,7 @@ class DataWriter:
         self.create_data_dir()
         if os.path.isfile(self.TASKS_FILENAME):
             return
-        header = 'time;taskid;description;method;result;needed_time;time_generating;backspaces\n'
+        header = 'time;taskid;description;method;result;needed_time;time_generating\n'
         with open(self.TASKS_FILENAME, 'w') as f:
             f.write(header)
         

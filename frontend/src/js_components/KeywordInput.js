@@ -1,3 +1,5 @@
+import '../App.css';
+
 export function KeywordInput(props) {
 
     const handleSubmit = (event) => {
@@ -17,7 +19,7 @@ export function KeywordInput(props) {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input type='text' id='input' disabled={props.disabled} required></input>
+                <input type='text' id='input' className='KeywordInput' disabled={props.disabled} required></input>
                 <input type='submit' value='Generate' disabled={props.disabled}></input>
             </form>
             <label id='status_lbl'> {lbl} </label>

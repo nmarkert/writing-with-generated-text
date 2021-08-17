@@ -17,7 +17,7 @@ export function FinishPage() {
         You finished the first part of this study. Now please follow the link below 
         to take part at the final survey.
         </p>
-        <a href={link}> Link </a>
+        <a href={link} className='link'> Link </a>
         </>
     )
 }

@@ -6,8 +6,18 @@
   border: 3px solid black;
   padding: 10px;
   margin: 10px;
-  height: 100px;
+  height: 150px;
   width: 500px;
   max-width: 80vw;
   text-align: left;
+}
+
+.KeywordInput {
+  width: 200px;
+  max-width: 75vw;
+}
+
+.smallSpace {
+  width: auto;
+  height: 10px;
 }

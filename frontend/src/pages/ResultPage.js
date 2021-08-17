@@ -63,10 +63,10 @@ export function ResultPage() {
 
     let link
     if (!task.last) {
-        link = <Link to={'/task'+(parseInt(tid)+1)}> Next </Link>
+        link = <Link to={'/task'+(parseInt(tid)+1)} className='link'> Next </Link>
     }
     else {
-        link = <Link to='/finished'> Finish </Link>
+        link = <Link to='/finished' className='link'> Finish </Link>
     }
 
     return(
@@ -80,9 +80,9 @@ export function ResultPage() {
             <h3> Questions </h3>
             {questions}
         </div>
-        <div>
-            {link}
-        </div> 
+        
+        {link}
+        <div className='divider'/>
         </>
     )
 }

@@ -12,5 +12,15 @@ input[type=radio] {
 .questionlabel {
     display: inline-block;
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 620;
+    font-size: 18px;
+}
+
+.link {
+    font-size: 20px;
+}
+
+.divider {
+    width: auto;
+    height: 20px;
 }
