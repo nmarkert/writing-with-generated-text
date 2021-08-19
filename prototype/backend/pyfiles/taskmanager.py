@@ -1,7 +1,7 @@
 import time
 from pyfiles.ratings import Ratings
 from pyfiles.logger import InputLogger
-from pyfiles.constants import TASK1, TASK2, method_names, MIN_TEXT_LENGTH
+from pyfiles.constants import TASK1, TASK2, METHODS, MIN_TEXT_LENGTH, TASKS
 
 class Task:
 
@@ -18,8 +18,8 @@ class Task:
 
     def to_json(self):
         return {
-            'desc': self.desc,
-            'method_name': method_names[self.method],
+            'desc': TASKS[self.desc],
+            'method_name': METHODS[self.method],
             'method_id': self.method,
             'result': self.result,
             'last': self.last,
@@ -51,15 +51,15 @@ class Task:
         self.logger.log_sen(sen)
 
     def to_csv(self):
-        return str(self.id) + ';' + self.desc + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
+        return str(self.id) + ';' + str(self.desc) + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
                 + str(self.needed_time()) + ';' + str(self.time_generating)
     
 
 tasks = list()
 
 def fill_tasks(uid):
-    order_tasks = [[TASK1, TASK2], 
-                   [TASK2, TASK1]]
+    order_tasks = [[0, 1], 
+                   [1, 0]]
     order_methods = [[0, 1, 2],
                      [2, 0, 1],
                      [1, 2, 0]]
