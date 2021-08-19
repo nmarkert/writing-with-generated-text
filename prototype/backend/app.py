@@ -105,6 +105,5 @@ def get_survey_link():
     return {'link': SURVEY_LINK}
 
 
-
-#g.load_model()
+g.load_model()
 app.run(debug=False)

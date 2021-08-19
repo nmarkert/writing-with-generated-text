@@ -1,0 +1,4 @@
+data/
+__pycache__/
+
+#TODO .gitignore anpasssen, vllt für komplettes projekt in einer
