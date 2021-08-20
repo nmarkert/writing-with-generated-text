@@ -21,3 +21,13 @@
   width: auto;
   height: 10px;
 }
+
+.scrollBox {
+  margin: 0 auto;
+  text-align: left;
+  height: 500px;
+  width: 800px;
+  max-width: 80vw;
+  border:1px solid #ccc;
+  overflow:auto;
+}

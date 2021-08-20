@@ -20,7 +20,7 @@ class Version2 extends Baseline {
             <div>
                 <TextField 
                     stop={this.stopClock}
-                    on_submit={this.new_generation} 
+                    on_submit={this.generate_options} 
                     sentence={this.state.full_sen} 
                     handle_typing={this.handle_typing}
                     set_len={()=>{}}

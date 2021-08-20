@@ -117,7 +117,7 @@ class Baseline extends React.Component {
         this.startClock()
       }
     
-      new_generation(sentence) {
+      new_generation(sentence, b=false) {
         this.generation_started(false)
         fetch('/api/generate', {
           method: 'POST',
@@ -140,6 +140,7 @@ class Baseline extends React.Component {
       }
     
       generate_options(pre, new_gen=true) {
+        
         if(new_gen) {
           this.setState({
             sentence: [],

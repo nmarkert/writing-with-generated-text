@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { StartingPage } from './pages/StartingPage';
+import { AgreementPage } from './pages/AgreementPage';
 import { WritingPage } from './pages/WritingPage';
 import { TaskPage } from './pages/TaskPage';
 import { ResultPage } from './pages/ResultPage';
@@ -30,5 +31,7 @@ class App extends React.Component {
     );
   }
 }
+
+// <Route exact path="/"> <AgreementPage/> </Route> //TODO Route to aggrement page
 
 export default App;
