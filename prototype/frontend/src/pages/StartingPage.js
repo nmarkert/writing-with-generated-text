@@ -17,7 +17,7 @@ export function StartingPage(props) {
         li = <label> Tasks </label>
     }
     else {
-        li = <Link to='/task0'> Tasks </Link>
+        li = <Link to='/agreement'> Tasks </Link>
     }
 
     return(

@@ -11,7 +11,7 @@ DATA_DIR = os.getcwd() + '/data'        # Data dir for testing
 MIN_TEXT_LENGTH = 20
 
 # The amount of displayed suggestions (for Version2)
-AMOUNT_SUGGESTIONS = 3
+AMOUNT_SUGGESTIONS = 5
 
 # The names for the different methods
 METHODS = {

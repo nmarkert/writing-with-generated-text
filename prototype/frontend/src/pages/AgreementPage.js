@@ -1,25 +1,27 @@
 import { useState } from "react";
 import { Agreement } from "../js_components/Agreement";
+import { Link } from "react-router-dom";
 
-export function AgreementPage(props) {
+export function AgreementPage() {
     const [checked, setChecked] = useState(false)
 
     const handleChange = () => {
         setChecked(!checked)
     }
 
-    // TODO: Change that link is clickable if checked is true
     let li
-    if ( checked ) {
-        li = <label> Yes </label>
+    if (checked) { 
+        li = <Link to='/task0'> Start </Link>
     }
     else {
-        li = <label> No </label>
+        li = <label> Start </label>
     }
 
     return(
         <>
         <h1> Agreement </h1>
+        <label> Before starting the tasks you have to agree to the "Statutory Disclosure Duty for the Collection of Data Act 13 GDPR". </label>
+        <div className='smallSpace'/>
         <div className='scrollBox'>
             <Agreement />
         </div>
@@ -30,8 +32,9 @@ export function AgreementPage(props) {
                 checked={checked}
                 onChange={handleChange}
             />
-            <label>I have read and agreed to the "Statutory Disclosure Duty for the Collection of Data Act 13 GDPR" above</label>
+            <label>I have read the "Statutory Disclosure Duty for the Collection of Data Act 13 GDPR" above and agree to it</label>
         </div>
+        <div className='smallSpace'/>
         {li}
         </>
     )

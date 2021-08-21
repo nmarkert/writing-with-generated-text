@@ -139,16 +139,13 @@ class Baseline extends React.Component {
         })
       }
     
-      generate_options(pre, new_gen=true) {
-        
-        if(new_gen) {
-          this.setState({
-            sentence: [],
-            full_sen: pre.split(" "),
-          })
-          this.redoGeneration()
-        }
-    
+
+      generate_options(pre) {
+        this.setState({
+          sentence: pre.split(" "),
+        })
+        this.generation_started(false)
+   
         fetch('/api/generate_options', {
           method: 'POST',
           body: JSON.stringify({
@@ -163,13 +160,14 @@ class Baseline extends React.Component {
             this.setState({
               sen_options: message.sentences,
             })
+            this.generation_finished()
         })
       }
     
       option_choosed(opt_idx) {
-        let pre_l = this.state.full_sen.concat(this.state.sen_options[opt_idx])
+        let pre_l = this.state.sentence.concat(this.state.sen_options[opt_idx])
         this.setState({
-          full_sen: pre_l,
+          sentence: pre_l,
           sen_options: []
         })
         let pre_sen = ''
@@ -182,14 +180,14 @@ class Baseline extends React.Component {
           i++
         }
         this.startClock()
-        this.generate_options(pre_sen, false)
+        this.generate_options(pre_sen)
       }
 
       new_options() {
         this.setState({
           sen_options: [],
         })
-        let pre_l = this.state.full_sen
+        let pre_l = this.state.sentence
         let pre_sen = ''
         let i = 0
         for (let w of pre_l) {

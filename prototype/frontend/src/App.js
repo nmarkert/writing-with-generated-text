@@ -21,6 +21,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/"> <StartingPage/> </Route>
             <Route path="/version:version"> <WritingPage/> </Route>
+            <Route path="/agreement"> <AgreementPage/> </Route>
             <Route exact path="/task:tid"> <TaskPage/> </Route>
             <Route path="/task:tid/writing"> <WritingPage/> </Route>
             <Route path="/task:tid/result"> <ResultPage/> </Route>
@@ -31,7 +32,5 @@ class App extends React.Component {
     );
   }
 }
-
-// <Route exact path="/"> <AgreementPage/> </Route> //TODO Route to aggrement page
 
 export default App;

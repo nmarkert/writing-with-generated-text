@@ -6,7 +6,7 @@ import Baseline from './Baseline'
 class Version2 extends Baseline {
 
     render() {
-        this.props.set_length(this.state.full_sen.length)
+        this.props.set_length(this.state.sentence.length)
         return(
             <>
             <div>
@@ -21,10 +21,10 @@ class Version2 extends Baseline {
                 <TextField 
                     stop={this.stopClock}
                     on_submit={this.generate_options} 
-                    sentence={this.state.full_sen} 
+                    sentence={this.state.sentence} 
                     handle_typing={this.handle_typing}
                     set_len={()=>{}}
-                    disabled={true}
+                    disabled={this.state.isGenerating}
                 />
             </div>
             <div>

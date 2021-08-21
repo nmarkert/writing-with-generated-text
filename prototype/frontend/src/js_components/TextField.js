@@ -46,7 +46,7 @@ class TextField extends React.Component{
       this.setState({intervalId: -1})
     }
     let sentence = document.getElementById('field').value
-    this.props.on_submit(sentence, false)
+    this.props.on_submit(sentence)
   }
 
   to_string(arr) {
