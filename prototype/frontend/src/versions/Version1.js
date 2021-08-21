@@ -19,6 +19,7 @@ class Version1 extends Baseline {
             </div>
             <div>
                 <TextField 
+                    start={this.startClock} 
                     stop={this.stopClock}
                     on_submit={this.new_generation} 
                     sentence={this.state.sentence} 

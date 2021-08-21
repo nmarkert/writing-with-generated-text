@@ -79,6 +79,8 @@ class TextField extends React.Component{
           <textarea id='field' type='text' className="TextField" 
                     value={this.to_string(this.props.sentence)} 
                     onChange={this.handleTyping.bind(this)} 
+                    onFocus={this.props.stop}
+                    onBlur={this.props.start}
                     disabled={this.props.disabled}> 
           </textarea>
         </form>
