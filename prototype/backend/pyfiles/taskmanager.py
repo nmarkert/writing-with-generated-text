@@ -1,7 +1,7 @@
 import time
 from pyfiles.ratings import Ratings
 from pyfiles.logger import InputLogger
-from pyfiles.constants import TASK1, TASK2, METHODS, MIN_TEXT_LENGTH, TASKS
+from pyfiles.constants import METHODS, MIN_TEXT_LENGTH, TASKS
 
 class Task:
 

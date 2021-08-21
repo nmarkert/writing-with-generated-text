@@ -20,15 +20,9 @@ METHODS = {
     2: 'Writing with suggestions'
 }
 
-# Concrete Task
-TASK1 = 'It\'s your friends birthday. Write him an email to wish him all the best and mention that you have to meet again in some time.' 
-
-# Open Task
-TASK2 = 'Write a short story about your last or upcoming vacation.'
-
 TASKS = {
     # Concrete Task
-    0: 'It\'s your friends birthday. Write him an email to wish him all the best and mention that you have to meet again in some time.', 
+    0: 'It\'s your friends birthday. Write him an e-mail to wish him all the best and mention that you have to meet again in some time.', 
     # Open Task
     1: 'Write a short story about your last or upcoming vacation.'
 }
