@@ -20,7 +20,7 @@ export function WritingPage() {
             .then(response => response.json())
             .then(data => setTask(data))
 
-            fetch(`/api/task/${tid}/start_timer`)
+            //fetch(`/api/task/${tid}/start_timer`)
 
             return () => {
                 fetch(`/api/task/${tid}/end_timer`)

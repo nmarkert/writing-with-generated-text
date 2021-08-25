@@ -22,6 +22,11 @@
   height: 10px;
 }
 
+.smallHSpace {
+  height: auto;
+  width: 15px;
+}
+
 .scrollBox {
   margin: 0 auto;
   text-align: left;
@@ -30,4 +35,9 @@
   max-width: 80vw;
   border:1px solid #ccc;
   overflow:auto;
+}
+
+
+.cButton {
+  margin: 5px;
 }

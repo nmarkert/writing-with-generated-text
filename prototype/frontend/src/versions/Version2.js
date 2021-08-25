@@ -33,6 +33,7 @@ class Version2 extends Baseline {
                     sentence_options={this.state.sen_options}
                     on_choose={this.option_choosed}
                     generate_new={this.new_options}
+                    disabled={this.state.isGenerating}
                 />
             </div>
             </>

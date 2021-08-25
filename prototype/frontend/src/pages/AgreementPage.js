@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Agreement } from "../js_components/Agreement";
+import { Agreement, DataPolicy } from "../js_components/Agreement";
 import { Link } from "react-router-dom";
 
 export function AgreementPage() {
@@ -23,7 +23,7 @@ export function AgreementPage() {
         <label> Before starting the tasks you have to agree to the "Statutory Disclosure Duty for the Collection of Data Act 13 GDPR". </label>
         <div className='smallSpace'/>
         <div className='scrollBox'>
-            <Agreement />
+            <DataPolicy />
         </div>
         <div className='smallSpace'/>
         <div>

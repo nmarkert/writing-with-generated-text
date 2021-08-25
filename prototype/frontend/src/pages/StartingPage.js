@@ -9,7 +9,8 @@ export function StartingPage(props) {
         event.preventDefault()
         let uid = document.getElementById('uid_input').value
         fetch(`/api/user/${uid}`)
-        setDisabled(false)
+        .then( setDisabled(false) )
+        
     }
 
     let li
@@ -17,7 +18,7 @@ export function StartingPage(props) {
         li = <label> Tasks </label>
     }
     else {
-        li = <Link to='/agreement'> Tasks </Link>
+        li = <Link to='/task0'> Tasks </Link>
     }
 
     return(

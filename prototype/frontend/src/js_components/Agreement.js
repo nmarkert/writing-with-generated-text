@@ -76,3 +76,43 @@ export function Agreement() {
         </>
     )
 }
+
+export function DataPolicy() {
+    return(
+        <>
+        <h1>Writing with Text Generation</h1>
+
+        <p><strong>Purpose and Tasks: </strong>The survey will serve as a basis to create and study novel features for text editing tools. These features, for example, will enable users to write text on mobile devices with the help of a text generator. The purpose of this study is to compare two different interaction techniques for writing with generated text on mobile devices. Regarding to this topic, we will show you the two different methods and let you work with them on different tasks. Everything has to be answered and written in English.</p>
+
+        <p><strong>Time commitment: </strong>Participation in this study will take about 45 minutes.</p>
+
+        <p><strong>Suitability for the study: </strong>Legally competent adults are allowed as participants. The following criteria are required: Generally healthy and able to complete the tasks on a mobile device.</p>
+
+        <p><strong>Research group's experience of the method: </strong>The members of the group have experience in over 30+ controlled studies in human-computer interaction. There are no reported incidents of ethical misconduct.</p>
+
+        <p><strong>Voluntary participation: </strong>Participation in the survey is voluntary. You have the right to discontinue participation at any time without obligation to disclose any specific reasons.</p>
+
+        <p><strong>Possible risks and their prevention: </strong>The experiment is not expected to carry any risks to the participants. At any time you feel the need to discontinue the experiment, you are free to do so.</p>
+
+        <p><strong>Collection of data: </strong>1) Logging while working on the tasks;  2) Demographics; 3) Survey responses</p>
+
+        <p><strong>Anonymity, secure storage, confidentiality: </strong>The data will be used for scientific purposes only and are confidential. All data will be anonymised. No explicit clues of your identity will be left to the stored data. All data will be stored securely. According to the data storage plan of the project and to support open science, the anonymous data will be made available via platforms such as osf.io.</p>
+
+        <p><strong>Supervision & Research Group:</strong> The study is conducted under the supervision of Niklas Markert (niklas.markert@uni-bayreuth.de). We are a research group on HCI and AI at the University of Bayreuth <a href="https://www.hciai.uni-bayreuth.de/en/index.html" rel="noreferrer noopener" target="_blank">https://www.hciai.uni-bayreuth.de/en/index.html</a></p>
+
+        <hr />
+        <h2>Data Policy: Information about study participation and data processing</h2>
+
+        <p>1. I am aware that the collection, processing, and use of my data takes place on a voluntary basis. The participation in the study can be cancelled by me at any time without stating reasons, without this resulting in any disadvantages for me. In the event of termination, all data recorded by me up to that point will be irrevocably deleted after the data collection phase.</p>
+
+        <p>2. I agree that my data including my demographics and my replies about writing with generated text may be collected, stored and processed in anonymized form. <b>No personal data is processed.</b></p>
+
+        <p>3. The results and original data of this study will be used in a bachelor thesis. This is done in a completely anonymous form, i.e. the data cannot be assigned to the respective participants in the study. This study thus follows the recommendations of the German Research Foundation (DFG) for quality assurance in terms of verifiability and reproducibility of scientific results, as well as optimal post-use of data.</p>
+
+        <p>I hereby confirm that I have read and understood the above declaration of consent. I confirm that I voluntarily participate in the study and agree to the processing of my data by the University of Bayreuth, Germany.</p>
+
+        <hr />
+        <p> </p>
+        </>
+    )
+}

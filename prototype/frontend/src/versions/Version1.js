@@ -21,7 +21,7 @@ class Version1 extends Baseline {
                 <TextField 
                     start={this.startClock} 
                     stop={this.stopClock}
-                    on_submit={this.new_generation} 
+                    on_submit={()=>{}} 
                     sentence={this.state.sentence} 
                     handle_typing={this.handle_typing}
                     set_len={()=>{}}
@@ -30,12 +30,13 @@ class Version1 extends Baseline {
             </div>
             <div>
                 <ControllButtons 
-                    startClock={this.startClock} 
+                    startClock={this.triggerStart} 
                     stopClock={this.stopClock}
                     redoGeneration={this.redoGeneration}
                     slowerGeneration={this.slowerGeneration}
                     fasterGeneration={this.fasterGeneration}
                     disabled={this.state.isGenerating}
+                    running={this.state.running}
                 />
             </div>
             </>

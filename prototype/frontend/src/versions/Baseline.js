@@ -1,4 +1,5 @@
 import React from 'react';
+import { to_string } from '../App'
 
 class Baseline extends React.Component {
     
@@ -12,8 +13,10 @@ class Baseline extends React.Component {
           full_sen: [],
           sen_options: [],
           isGenerating: false,
+          hasChanged: false,
         };
         this.startClock = this.startClock.bind(this);
+        this.triggerStart = this.triggerStart.bind(this);
         this.stopClock = this.stopClock.bind(this);
         this.redoGeneration = this.redoGeneration.bind(this);
         this.fasterGeneration = this.fasterGeneration.bind(this);
@@ -39,12 +42,22 @@ class Baseline extends React.Component {
         }
         else {
           this.state.sentence.push(this.state.full_sen[this.state.seconds]);
+          var ta = document.getElementById('field');
+          ta.scrollLeft = ta.scrollWidth;
         }
       }
     
+      triggerStart() {
+        if(this.state.hasChanged || 
+          (this.state.full_sen.length == this.state.sentence.length && this.state.sentence.length != 0)) {
+          this.new_generation(to_string(this.state.sentence))
+        }
+        else {
+          this.startClock()
+        }
+      }
     
       startClock() {
-        console.log('Starting')
         if(!this.state.running) {
           let intervalId = setInterval(() => this.tick(), this.state.speed);
           this.setState({
@@ -57,7 +70,10 @@ class Baseline extends React.Component {
       stopClock() {
         if(this.state.running) {
           clearInterval(this.state.interval);
-          this.setState({running: false})
+          this.setState({
+            running: false,
+            hasChanged: false,
+          })
         }
       }
     
@@ -117,7 +133,7 @@ class Baseline extends React.Component {
         this.startClock()
       }
     
-      new_generation(sentence, b=false) {
+      new_generation(sentence) {
         this.generation_started(false)
         fetch('/api/generate', {
           method: 'POST',
@@ -129,7 +145,7 @@ class Baseline extends React.Component {
             }
         }).then(response => response.json())
         .then(message => {
-            console.log(message.index)
+            //console.log(message.index)
             this.setState({
               sentence: sentence.split(" "),
               full_sen: message.sentence,
@@ -179,7 +195,6 @@ class Baseline extends React.Component {
           }
           i++
         }
-        this.startClock()
         this.generate_options(pre_sen)
       }
 
@@ -205,6 +220,7 @@ class Baseline extends React.Component {
         let new_sentence = s.split(" ")
         this.setState({
           sentence: new_sentence,
+          hasChanged: true,
         })
       }
       

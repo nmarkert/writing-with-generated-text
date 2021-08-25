@@ -2,8 +2,8 @@ export function ControllButtons(props) {
 
     return(
         <>
-          <button onClick={props.startClock}        disabled={props.disabled}> Start </button>
-          <button onClick={props.stopClock}         disabled={props.disabled}> Stop </button>
+          <button onClick={props.startClock}  disabled={props.disabled || props.running}  style={{ margin: 3 }}> Continue </button>
+          <button onClick={props.stopClock}   disabled={props.disabled || !props.running} style={{ margin: 3 }}> Stop </button>
         </>
     )
     /*

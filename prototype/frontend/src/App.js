@@ -34,3 +34,11 @@ class App extends React.Component {
 }
 
 export default App;
+
+export function to_string(arr) {
+  let s = '';
+  for (let w of arr) {
+    s += w + ' '
+  }
+  return s.slice(0, -1) // To remove the last whitespace
+}
