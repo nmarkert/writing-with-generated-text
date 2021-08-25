@@ -36,7 +36,7 @@ class DataWriter:
         self.create_user_dir()
         if os.path.isfile(self.TASKS_FILENAME):
             return
-        header = 'taskid;description;method;result;needed_time;time_generating\n'
+        header = 'taskid;task;method;result;needed_time;time_generating\n'
         with open(self.TASKS_FILENAME, 'w') as f:
             f.write(header)
         

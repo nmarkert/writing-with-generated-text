@@ -17,6 +17,9 @@ def generate_sentence():
     request_data = json.loads(request.data)
     sentence = request_data['content']
 
+    if c.get_curr() != None:
+        tasks[c.get_curr()].start_timer()
+
     index = len(sentence.split(' '))
     sen, t = g.generate_sentence(sentence)
     if c.get_curr() != None:
@@ -30,11 +33,15 @@ def generate_sentence():
 def generate_options():
     request_data = json.loads(request.data)
     pre = request_data['pre_sentence']
+
     if c.get_curr() != None:
+        tasks[c.get_curr()].start_timer()
         tasks[c.get_curr()].log(pre)
+
     sen, t = g.generate_multiple_options(pre, AMOUNT_SUGGESTIONS)
     if c.get_curr() != None:
         tasks[c.get_curr()].add_generating_time(t)
+
     return {'sentences': sen}
 
 
@@ -80,6 +87,7 @@ def finished_task():
 def log_input():
     request_data = json.loads(request.data)
     if c.get_curr() != None:
+        tasks[c.get_curr()].start_timer()
         tasks[c.get_curr()].log(request_data['sentence'])
     return '', 204
 

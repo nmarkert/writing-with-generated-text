@@ -27,7 +27,8 @@ class Task:
         }
     
     def start_timer(self):
-        self.t_start = time.perf_counter()
+        if self.t_start == None:
+            self.t_start = time.perf_counter()
 
     def end_timer(self):
         self.t_end = time.perf_counter()
