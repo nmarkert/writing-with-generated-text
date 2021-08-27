@@ -1,7 +1,6 @@
 import os, os.path
 
-from pyfiles.ratings import questions
-from pyfiles.constants import DATA_DIR
+from pyfiles.constants import DATA_DIR, QUESTIONS
 
 class DataWriter:
 
@@ -56,9 +55,9 @@ class DataWriter:
             return
         header = 'taskid;'
         sec_line = ';'
-        for i in range(len(questions)):
+        for i in range(len(QUESTIONS)):
             header += 'question' + str(i) + ';'
-            sec_line += questions[i] + ';'
+            sec_line += QUESTIONS[i] + ';'
         header = header[:-1] + '\n'
         sec_line = sec_line[:-1] + '\n'
         with open(self.RATINGS_FILENAME, 'w') as f:

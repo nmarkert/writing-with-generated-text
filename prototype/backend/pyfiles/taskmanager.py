@@ -54,18 +54,16 @@ class Task:
     def to_csv(self):
         return str(self.id) + ';' + str(self.desc) + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
                 + str(self.needed_time()) + ';' + str(self.time_generating)
-    
 
-tasks = list()
 
+# Returns the order of tasks based on the user id
 def fill_tasks(uid):
     order_tasks = [[0, 1], 
                    [1, 0]]
     order_methods = [[0, 1, 2],
                      [2, 0, 1],
                      [1, 2, 0]]
-
-    tasks.clear()
+    tasks = list()
     i = 0
     for task in order_tasks[uid%2]:
         for method in order_methods[uid%3]:
@@ -74,28 +72,4 @@ def fill_tasks(uid):
             )
             i += 1
     tasks[-1].last = True
-
-
-def add_task(desc, method):
-    tasks.append(
-        Task(len(tasks), desc, method)
-    )
-
-
-class Current:
-    def __init__(self):
-        self.id = 0
-        self.active = False
-    
-    def set_curr(self, curr):
-        self.id = curr
-        self.active = True
-    
-    def not_active(self):
-        self.active = False
-
-    def get_curr(self):
-        if self.active:
-            return self.id
-        else:
-            return None
+    return tasks

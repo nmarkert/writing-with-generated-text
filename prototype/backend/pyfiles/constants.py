@@ -20,9 +20,20 @@ METHODS = {
     2: 'Writing with suggestions'
 }
 
+# The different tasks
 TASKS = {
     # Concrete Task
     0: 'It\'s your friends birthday. Write him an e-mail to wish him all the best and mention that you have to meet again in some time.', 
     # Open Task
     1: 'Write a short story about your last or upcoming vacation.'
 }
+
+# The questions after each task
+QUESTIONS = [
+    'I am satisfied with the text.',
+    'It was easy for me to write the text.',
+    'I feel like I am the author of the text.',
+    'The interaction method was suitable for this task.',
+    'The interaction method helped me writing the text.',
+    'The interaction method influenced the wording of the text.'
+]
