@@ -9,6 +9,7 @@ class Version2 extends Baseline {
         this.props.set_length(this.state.sentence.length)
         return(
             <>
+            { /*
             <div>
                 <KeywordInput 
                     g_started={this.generation_started} 
@@ -17,6 +18,7 @@ class Version2 extends Baseline {
                     generate={this.generate_options}
                 />
             </div>
+            */ }
             <div>
                 <TextField 
                     start={this.startClock} 

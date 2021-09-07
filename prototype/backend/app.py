@@ -28,6 +28,7 @@ def generate_sentence():
 def generate_options():
     request_data = json.loads(request.data)
     pre = request_data['pre_sentence']
+    new_opts = request_data['new_options']
 
     model.start_task_timer()
     model.task_logging(pre)
@@ -35,6 +36,8 @@ def generate_options():
     sen, t = g.generate_multiple_options(pre, AMOUNT_SUGGESTIONS)
     
     model.add_gen_time(t)
+    if(new_opts):
+        model.increase_new_opts()
 
     return {'sentences': sen}
 

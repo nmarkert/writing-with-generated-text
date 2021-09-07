@@ -75,7 +75,8 @@ export function ResultPage() {
         <div>
             <h3> Your Result: </h3>
             {task.result}
-        </div>        
+            <div className='divider'/>     
+        </div>   
         <div>
             <h3> Questions </h3>
             {questions}

@@ -15,6 +15,8 @@ class Task:
         self.last = False # Flag if the task is the last one
         self.t_start, self.t_end = None, None
         self.time_generating = 0
+        self.amount_generations = 0
+        self.amount_new_options = 0 # Amount how often the suggestions get renewed (on Version2)
 
     def to_json(self):
         return {
@@ -35,6 +37,10 @@ class Task:
 
     def add_generating_time(self, t):
         self.time_generating += t
+        self.amount_generations += 1
+    
+    def increase_new_opts(self):
+        self.amount_new_options += 1
 
     def needed_time(self):
         if self.t_start != None and self.t_end != None:
@@ -52,9 +58,16 @@ class Task:
         self.logger.log_sen(sen)
 
     def to_csv(self):
-        return str(self.id) + ';' + str(self.desc) + ';' + str(self.method) + ';' + self.result.replace('\n','\\n').replace(';', ',') + ';' \
-                + str(self.needed_time()) + ';' + str(self.time_generating)
-
+        return (
+            str(self.id) + ';' +
+            str(self.desc) + ';' + 
+            str(self.method) + ';' + 
+            self.result.replace('\n','\\n').replace(';', ',') + ';' +
+            str(self.needed_time()) + ';' + 
+            str(self.time_generating) + ';' + 
+            str(self.amount_generations) + ';' + 
+            str(self.amount_new_options)
+        )
 
 # Returns the order of tasks based on the user id
 def fill_tasks(uid):

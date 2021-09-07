@@ -1,3 +1,5 @@
+import '../App.css';
+
 export function OptionButtons(props) {
 
     var buttons = []
@@ -9,7 +11,7 @@ export function OptionButtons(props) {
         
         buttons.push(
         <div key={i}>
-            <button onClick={() => props.on_choose(i)} disabled={props.disabled}>{opt}</button>
+            <button onClick={() => props.on_choose(i)} disabled={props.disabled} className='oButton'>{opt}</button>
         </div>
         )
     }
@@ -18,7 +20,7 @@ export function OptionButtons(props) {
             <div className='smallSpace'/>
         )
         buttons.push(
-            <button onClick={props.generate_new} disabled={props.disabled}> New Options </button>
+            <button onClick={props.generate_new} disabled={props.disabled} className='oButton'> New Options </button>
         )
     }
 

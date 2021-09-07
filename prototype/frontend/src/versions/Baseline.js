@@ -156,7 +156,7 @@ class Baseline extends React.Component {
       }
     
 
-      generate_options(pre) {
+      generate_options(pre, new_options = false) {
         this.setState({
           sentence: pre.split(" "),
         })
@@ -165,7 +165,8 @@ class Baseline extends React.Component {
         fetch('/api/generate_options', {
           method: 'POST',
           body: JSON.stringify({
-              'pre_sentence': pre
+              'pre_sentence': pre,
+              'new_options': new_options,
           }),
           headers: {
               "Content-type": "aplication/json; charset=UTF-8"
@@ -212,7 +213,7 @@ class Baseline extends React.Component {
           }
           i++
         }
-        this.generate_options(pre_sen)
+        this.generate_options(pre_sen, true)
       }
     
     

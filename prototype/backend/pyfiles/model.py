@@ -37,6 +37,10 @@ class Model:
         if self.in_task:
             self.curr_task.add_generating_time(time)
     
+    def increase_new_opts(self):
+        if self.in_task:
+            self.curr_task.increase_new_opts()
+    
     def task_logging(self, sentence):
         if self.in_task:
             self.curr_task.log(sentence)

@@ -1,6 +1,6 @@
 import os, os.path
 
-from pyfiles.constants import DATA_DIR, QUESTIONS
+from pyfiles.constants import DATA_DIR, QUESTIONS, TASK_FILE_HEADER
 
 class DataWriter:
 
@@ -35,9 +35,8 @@ class DataWriter:
         self.create_user_dir()
         if os.path.isfile(self.TASKS_FILENAME):
             return
-        header = 'taskid;task;method;result;needed_time;time_generating\n'
         with open(self.TASKS_FILENAME, 'w') as f:
-            f.write(header)
+            f.write(TASK_FILE_HEADER)
         
     def store_task(self, task):
         self.write_tasks_fileheader()

@@ -11,7 +11,7 @@ DATA_DIR = os.getcwd() + '/data'        # Data dir for testing
 MIN_TEXT_LENGTH = 20
 
 # The amount of displayed suggestions (for Version2)
-AMOUNT_SUGGESTIONS = 5
+AMOUNT_SUGGESTIONS = 3
 
 # The names for the different methods
 METHODS = {
@@ -37,3 +37,16 @@ QUESTIONS = [
     'The interaction method helped me writing the text.',
     'The interaction method influenced the wording of the text.'
 ]
+
+# Header for the Task file
+TASK_FILE_HEADER = (
+    'taskid;' + 
+    'task;' +
+    'method;' +
+    'result;' + 
+    'needed_time;' + 
+    'time_generating;' +
+    'amount_generations;' +
+    'amount_new_opts'
+    + '\n'
+)

@@ -8,7 +8,7 @@
   margin: 10px;
   height: 150px;
   width: 500px;
-  max-width: 80vw;
+  max-width: 85vw;
   text-align: left;
 }
 
@@ -37,7 +37,15 @@
   overflow:auto;
 }
 
-
 .cButton {
-  margin: 5px;
+  margin: 2px;
+  width: 240px;
+  max-width: 45vw;
+  height: 20px;
+}
+
+.oButton {
+  width: 500px;
+  max-width: 85vw;
+  height: 20px;
 }
