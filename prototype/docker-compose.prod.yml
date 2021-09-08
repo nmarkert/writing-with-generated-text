@@ -1,13 +1,20 @@
 version: "3.9"
 networks:
-    nginx-proxy-manager:
-      external:
-        name: nginx-proxy-manager
+  inside:
+    driver: bridge
+  traefik-net:
+    external: true
 services:
-  your-backend:
+  markert-generation-backend:
+    container_name: markert-generation-backend
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+    volumes:
+      - ./backend:/app
+    networks:
+      - inside
+      - traefik-net
     deploy:
       resources:
         reservations:
@@ -15,13 +22,31 @@ services:
             - capabilities: [gpu]
     environment:
       FLASK_DEBUG: 0
-  your-frontend:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8088" # port of the traefik instance
+      - "traefik.docker.network=traefik-net" # traefik network
+      - "traefik.http.routers.markert-generation-be.rule=PathPrefix(`/markert-generation-backend`)" # URL path to your backend, replace YOUR-BACKEND with an unique string to name your router
+      - "traefik.http.middlewares.strip-markert-generation-be.prefixes=/markert-generation-backend" # declare strip prefix middleware from above, replace strip-YOUR-PATH with an unique name
+      - "traefik.http.routers.markert-generation-be.middlewares=strip-markert-generation-be@docker" # add middleware that strips of your path, replace YOUR-BACKEND with the router name above, replace strip-YOUR-PATH with the middleware's name above
+
+  markert-generation-frontend:
+    container_name: markert-generation-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
-  your-nginx:
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.prod.conf
-      - $PWD/frontend/build:/frontend/public
+      - ./frontend/build/:/ui/build/
+      - ./frontend/public:/ui/public
+      - ./frontend/src/:/ui/src/
     networks:
-      - nginx-proxy-manager
+      - inside
+      - traefik-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8088" # port of the traefik instance
+      - "traefik.docker.network=traefik-net" # traefik network
+      - "traefik.http.routers.markert-generation-fe.rule=PathPrefix(`/markert-generation-frontend`)" # URL path to your backend, replace YOUR-BACKEND with an unique string to name your router
+      - "traefik.http.middlewares.strip-markert-generation-fe.prefixes=/markert-generation-frontend" # declare strip prefix middleware from above, replace strip-YOUR-PATH with an unique name
+      - "traefik.http.routers.markert-generation-fe.middlewares=strip-markert-generation-fe@docker" # add middleware that strips of your path, replace YOUR-BACKEND with the router name above, replace strip-YOUR-PATH with the middleware's name above
+
