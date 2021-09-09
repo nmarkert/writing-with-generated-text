@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}> // see "homepage" entry in package.json for the value of PUBLIC_URL. Maybe an .env file could be used for that?
           <Switch>
             <Route exact path="/"> <StartingPage/> </Route>
             <Route path="/version:version"> <WritingPage/> </Route>

@@ -10,7 +10,6 @@ export function StartingPage(props) {
         let uid = document.getElementById('uid_input').value
         fetch(`/api/user/${uid}`)
         .then( setDisabled(false) )
-        
     }
 
     let li
