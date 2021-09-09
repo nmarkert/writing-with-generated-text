@@ -13,14 +13,18 @@ def generate_sentence():
     request_data = json.loads(request.data)
     sentence = request_data['content']
 
+    while sentence[-1] == ' ':
+        sentence = sentence[:-1]
+
     model.start_task_timer()
 
     index = len(sentence.split(' '))
-    sen, t = g.generate_sentence(sentence)
+    new_sen, t = g.generate_sentence(sentence)
     
     model.add_gen_time(t)
 
-    return {'sentence': sen,
+    return {'sentence': sentence,
+            'new_sentence': new_sen,
             'index': index}
 
 
@@ -29,6 +33,9 @@ def generate_options():
     request_data = json.loads(request.data)
     pre = request_data['pre_sentence']
     new_opts = request_data['new_options']
+
+    while pre[-1] == ' ':
+        pre = pre[:-1]
 
     model.start_task_timer()
     model.task_logging(pre)
@@ -39,7 +46,10 @@ def generate_options():
     if(new_opts):
         model.increase_new_opts()
 
-    return {'sentences': sen}
+    return {
+        'pre_sen': pre, 
+        'sentences': sen
+        }
 
 
 @app.route('/api/user/<int:uid>') 

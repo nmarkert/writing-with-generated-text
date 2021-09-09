@@ -29,6 +29,7 @@ export function ResultPage() {
         const rbs = document.getElementsByName('rating'+i);
         let selectedValue = 0;
         for (const rb of rbs) {
+            
             if (rb.checked) {
                 selectedValue = rb.value;
                 break;

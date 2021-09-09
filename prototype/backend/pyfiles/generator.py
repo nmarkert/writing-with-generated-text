@@ -44,11 +44,7 @@ class Generator:
     def generate_sentence(self, keywords):
         self.load_model()
 
-        while keywords[-1] == ' ':
-            keywords = keywords[:-1]
-
         print('Started generating a sentence')
-        print('In:\n' + keywords + '\n----------------')
         t1 = time.perf_counter()
 
         input_ids = self.tokenizer.encode(keywords, return_tensors='pt')
@@ -64,9 +60,7 @@ class Generator:
             num_return_sequences = 1,
         )
         
-       
         out = self.tokenizer.decode(sample_output[0], skip_special_tokens=False).split(' ')
-        print('Out:\n' + str(out) + '\n----------------')
         
         t2 = time.perf_counter()
         time_needed = t2-t1
@@ -77,9 +71,6 @@ class Generator:
 
     def generate_multiple_options(self, pre, amount):
         self.load_model()
-       
-        while pre[-1] == ' ':
-            pre = pre[:-1]
 
         print('- Started generating a sentence')
         t1 = time.perf_counter()
@@ -100,8 +91,8 @@ class Generator:
         out=list()
         for sample_output in sample_outputs:
             sample = self.tokenizer.decode(sample_output, skip_special_tokens=False)[len(pre):].split(' ')
-            #if sample[0] == '':
-            #    sample = sample[1:]
+            if sample[0] == '':
+                sample = sample[1:]
             out.append(get_first_sentence(sample))
         
         t2 = time.perf_counter()

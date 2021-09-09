@@ -145,10 +145,9 @@ class Baseline extends React.Component {
             }
         }).then(response => response.json())
         .then(message => {
-            //console.log(message.index)
             this.setState({
-              sentence: sentence.split(" "),
-              full_sen: message.sentence,
+              sentence: message.sentence.split(" "),
+              full_sen: message.new_sentence,
               seconds : message.index - 1
             })
             this.generation_finished()
@@ -175,6 +174,7 @@ class Baseline extends React.Component {
         .then(message => {
             //console.log(message.sentences)
             this.setState({
+              sentence: message.pre_sen.split(' '),
               sen_options: message.sentences,
             })
             this.generation_finished()
