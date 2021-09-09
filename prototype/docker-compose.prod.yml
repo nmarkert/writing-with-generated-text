@@ -39,6 +39,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+    networks:
+      - inside
     volumes:
       - ./frontend/build/:/ui/build/
       - ./frontend/public:/ui/public
