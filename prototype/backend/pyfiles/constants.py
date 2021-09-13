@@ -4,8 +4,8 @@ import os
 SURVEY_LINK = 'https://hciaitools.uni-bayreuth.de/surveys/index.php/377687?lang=en'
 
 # Dir for the Data files
-#DATA_DIR = os.getcwd() + '/../../data' # Data dir for real values
-DATA_DIR = os.getcwd() + '/data'        # Data dir for testing
+DATA_DIR = os.getcwd() + '/../../data' # Data dir for real values
+#DATA_DIR = os.getcwd() + '/data'        # Data dir for testing
 
 # Minimum text length that has to be written in one task (in words)
 MIN_TEXT_LENGTH = 20

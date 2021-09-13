@@ -2,6 +2,7 @@
 # https://huggingface.co/blog/how-to-generate
 import random
 import time
+import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 mock_sentences = [
@@ -28,15 +29,17 @@ class Generator:
         self.model_loaded = False
         self.model = None
         self.tokenizer = None
+        self.device = None
     
 
     def load_model(self):
         if self.model_loaded:
             return
         print('Started loading the model')
+        self.device = torch.device('cuda')
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         #add the EOS token as PAD token to avoid warnings
-        self.model = GPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=self.tokenizer.eos_token_id)
+        self.model = GPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=self.tokenizer.eos_token_id).to(self.device)
         print('Finished loading')
         self.model_loaded = True
     
@@ -47,7 +50,7 @@ class Generator:
         print('Started generating a sentence')
         t1 = time.perf_counter()
 
-        input_ids = self.tokenizer.encode(keywords, return_tensors='pt')
+        input_ids = self.tokenizer.encode(keywords, return_tensors='pt').to(self.device)
         input_len = len(input_ids[0])
 
         sample_output = self.model.generate(
@@ -75,7 +78,7 @@ class Generator:
         print('- Started generating a sentence')
         t1 = time.perf_counter()
 
-        input_ids = self.tokenizer.encode(pre, return_tensors='pt')
+        input_ids = self.tokenizer.encode(pre, return_tensors='pt').to(self.device)
         input_len = len(input_ids[0])
         
         sample_outputs = self.model.generate(
