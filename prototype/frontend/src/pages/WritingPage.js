@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 
+import { BACKEND_URL } from "../App";
 import Version0 from "../versions/Version0";
 import Version1 from '../versions/Version1';
 import Version2 from '../versions/Version2';
@@ -16,14 +17,14 @@ export function WritingPage() {
 
     useEffect(() => {
         if(tid) {
-            fetch(`/api/task/${tid}`)
+            fetch(`${BACKEND_URL}/api/task/${tid}`)
             .then(response => response.json())
             .then(data => setTask(data))
 
             //fetch(`/api/task/${tid}/start_timer`)
 
             return () => {
-                fetch(`/api/task/${tid}/end_timer`)
+                fetch(`${BACKEND_URL}/api/task/${tid}/end_timer`)
             }
         }   
     }, [tid])

@@ -1,4 +1,3 @@
-import { KeywordInput } from '../js_components/KeywordInput'
 import TextField from '../js_components/TextField'
 import { OptionButtons } from '../js_components/OptionButtons'
 import Baseline from './Baseline'
@@ -9,16 +8,6 @@ class Version2 extends Baseline {
         this.props.set_length(this.state.sentence.length)
         return(
             <>
-            { /*
-            <div>
-                <KeywordInput 
-                    g_started={this.generation_started} 
-                    g_finished={this.generation_finished} 
-                    disabled={this.state.isGenerating}
-                    generate={this.generate_options}
-                />
-            </div>
-            */ }
             <div>
                 <TextField 
                     start={this.startClock} 

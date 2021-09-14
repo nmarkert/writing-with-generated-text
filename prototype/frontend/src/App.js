@@ -42,3 +42,5 @@ export function to_string(arr) {
   }
   return s.slice(0, -1) // To remove the last whitespace
 }
+
+export const BACKEND_URL = process.env.BACKEND_URL || ""

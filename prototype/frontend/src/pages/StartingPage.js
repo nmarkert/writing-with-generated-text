@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export function StartingPage(props) {
 
@@ -8,7 +9,7 @@ export function StartingPage(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         let uid = document.getElementById('uid_input').value
-        fetch(`/api/user/${uid}`)
+        fetch(`${BACKEND_URL}/api/user/${uid}`)
         .then( setDisabled(false) )
     }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { to_string } from '../App'
+import { to_string, BACKEND_URL } from '../App'
 
 class Baseline extends React.Component {
     
@@ -135,7 +135,7 @@ class Baseline extends React.Component {
     
       new_generation(sentence) {
         this.generation_started(false)
-        fetch('/api/generate', {
+        fetch(`${BACKEND_URL}/api/generate`, {
           method: 'POST',
           body: JSON.stringify({
               'content': sentence
@@ -161,7 +161,7 @@ class Baseline extends React.Component {
         })
         this.generation_started(false)
    
-        fetch('/api/generate_options', {
+        fetch(`${BACKEND_URL}/api/generate_options`, {
           method: 'POST',
           body: JSON.stringify({
               'pre_sentence': pre,

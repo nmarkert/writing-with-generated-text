@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import { to_string } from '../App'
+import { to_string, BACKEND_URL } from '../App'
 
 class TextField extends React.Component{
 
@@ -18,7 +18,7 @@ class TextField extends React.Component{
 
     this.props.set_len(event.target.value.split(' ').length)
 
-    fetch('/api/task/log_input', {
+    fetch(`${BACKEND_URL}/api/task/log_input`, {
       method: 'POST',
       body: JSON.stringify({
           'sentence': event.target.value
@@ -53,7 +53,7 @@ class TextField extends React.Component{
   componentWillUnmount() {
     clearInterval(this.state.intervalId)
 
-    fetch('/api/task/store_result', {
+    fetch(`${BACKEND_URL}/api/task/store_result`, {
       method: 'POST',
       body: JSON.stringify({
           'result': to_string(this.props.sentence)

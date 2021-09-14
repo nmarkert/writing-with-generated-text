@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
+import { BACKEND_URL } from "../App";
 
 export function FinishPage() {
     
     const [link, setLink] = useState('')
 
     useEffect(() => {
-        fetch('/api/survey_link')
+        fetch(`${BACKEND_URL}/api/survey_link`)
         .then(response => response.json())
         .then(data => setLink(data.link))
     }, [])

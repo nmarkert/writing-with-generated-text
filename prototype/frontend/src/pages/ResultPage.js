@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import './ResultPage.css'
+import { BACKEND_URL } from "../App";
 
 import { TaskDisplay } from "../js_components/TaskDisplay";
 
@@ -12,16 +13,16 @@ export function ResultPage() {
     const [quests, setQuests] = useState([])
 
     useEffect(() => {
-        fetch(`/api/task/${tid}`)
+        fetch(`${BACKEND_URL}/api/task/${tid}`)
         .then(response => response.json())
         .then(data => setTask(data))
 
-        fetch(`/api/questions`)
+        fetch(`${BACKEND_URL}/api/questions`)
         .then(response => response.json())
         .then(data => setQuests(data.questions))
 
         return () => {
-            fetch(`/api/task/${tid}/store`)
+            fetch(`${BACKEND_URL}/api/task/${tid}/store`)
         }
     }, [tid])
 
@@ -36,7 +37,7 @@ export function ResultPage() {
             }
         }
 
-        fetch(`/api/task/${tid}/rating`, {
+        fetch(`${BACKEND_URL}/api/task/${tid}/rating`, {
             method: 'POST',
             body: JSON.stringify({
                 'index' : i,

@@ -2,13 +2,14 @@ import { TaskDisplay } from "../js_components/TaskDisplay";
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../App";
 
 export function TaskPage(props) {
     const { tid } = useParams()
     const [task, setTask] = useState([])
 
     useEffect(() => {
-        fetch(`/api/task/${tid}`)
+        fetch(`${BACKEND_URL}/api/task/${tid}`)
         .then(response => response.json())
         .then(data => setTask(data))
     }, [tid])
