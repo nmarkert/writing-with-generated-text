@@ -10,6 +10,7 @@ import { FinishPage } from './pages/FinishPage';
 
 import './App.css';
 
+const BACKEND_URL = process.env.BACKEND_URL || ""
 
 class App extends React.Component {
   
@@ -17,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router basename={process.env.PUBLIC_URL}>
+        <Router>
           <Switch>
             <Route exact path="/"> <StartingPage/> </Route>
             <Route path="/version:version"> <WritingPage/> </Route>
@@ -35,6 +36,8 @@ class App extends React.Component {
 
 export default App;
 
+export default BACKEND_URL;
+
 export function to_string(arr) {
   let s = '';
   for (let w of arr) {
@@ -42,5 +45,3 @@ export function to_string(arr) {
   }
   return s.slice(0, -1) // To remove the last whitespace
 }
-
-export const BACKEND_URL = process.env.BACKEND_URL || ""
