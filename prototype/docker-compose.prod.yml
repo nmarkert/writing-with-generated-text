@@ -46,8 +46,8 @@ services:
       - ./frontend/public:/ui/public
       - ./frontend/src/:/ui/src/
     environment: 
-      - PUBLIC_URL = http://btn6xd.inf.uni-bayreuth.de/markert-generation-frontend/
-      - BACKEND_URL = http://btn6xd.inf.uni-bayreuth.de/markert-generation-backend/
+      - PUBLIC_URL=http://btn6xd.inf.uni-bayreuth.de/markert-generation-frontend/
+      - BACKEND_URL=http://btn6xd.inf.uni-bayreuth.de/markert-generation-backend/
 
   # serves the frontend
   markert-generation-nginx:
