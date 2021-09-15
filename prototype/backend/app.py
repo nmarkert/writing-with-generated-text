@@ -1,4 +1,5 @@
 from flask import Flask, request, json
+from torch.multiprocessing import set_start_method
 from pyfiles.generator import Generator
 from pyfiles.constants import SURVEY_LINK, AMOUNT_SUGGESTIONS
 from pyfiles.model import Model
@@ -119,3 +120,4 @@ g.load_model()
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
+    #set_start_method('spawn')

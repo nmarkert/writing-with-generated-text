@@ -37,7 +37,7 @@ class Generator:
         if self.model_loaded:
             return
         print('Started loading the model')
-        #set_start_method('spawn')
+        set_start_method('spawn')
         self.device = torch.device('cuda')
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         #add the EOS token as PAD token to avoid warnings
