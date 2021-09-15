@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route exact path="/"> <StartingPage/> </Route>
             <Route path="/version:version"> <WritingPage/> </Route>
