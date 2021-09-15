@@ -10,7 +10,7 @@ import { FinishPage } from './pages/FinishPage';
 
 import './App.css';
 
-const BACKEND_URL = process.env.BACKEND_URL || ""
+export const BACKEND_URL = process.env.BACKEND_URL || ""
 
 class App extends React.Component {
   
@@ -35,8 +35,6 @@ class App extends React.Component {
 }
 
 export default App;
-
-export default BACKEND_URL;
 
 export function to_string(arr) {
   let s = '';
