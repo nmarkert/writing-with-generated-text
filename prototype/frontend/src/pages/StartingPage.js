@@ -9,7 +9,7 @@ export function StartingPage(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         let uid = document.getElementById('uid_input').value
-        fetch(`http://btn6xd.inf.uni-bayreuth.de/markert-generation-backend/api/user/${uid}`)
+        fetch(`${BACKEND_URL}/api/user/${uid}`)
         .then( setDisabled(false) )
     }
 
