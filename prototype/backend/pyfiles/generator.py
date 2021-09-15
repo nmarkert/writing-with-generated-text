@@ -3,6 +3,7 @@
 import random
 import time
 import torch
+from torch.multiprocessing import set_start_method
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 mock_sentences = [
@@ -36,6 +37,7 @@ class Generator:
         if self.model_loaded:
             return
         print('Started loading the model')
+        set_start_method('spawn')
         self.device = torch.device('cuda')
         self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         #add the EOS token as PAD token to avoid warnings
