@@ -9,7 +9,7 @@ export function StartingPage(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
         let uid = document.getElementById('uid_input').value
-        fetch(`${BACKEND_URL}/api/user/${uid}`)
+        fetch(`${process.env.BACKEND_URL}/api/user/${uid}`)
         .then( setDisabled(false) )
     }
 
