@@ -28,6 +28,7 @@ class Generator:
         self.index = 0
         self.sentence = []
         self.model_loaded = False
+        self.device_set = False
         self.model = None
         self.tokenizer = None
         self.device = None
@@ -36,18 +37,26 @@ class Generator:
     def load_model(self):
         if self.model_loaded:
             return
-        print('Started loading the model')
-#        set_start_method('spawn')
-        self.device = torch.device('cuda')
-        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2") #.to(self.device)
+        print('Started loading the model') 
+        self.tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
         #add the EOS token as PAD token to avoid warnings
-        self.model = GPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=self.tokenizer.eos_token_id).to(self.device)
+        self.model = GPT2LMHeadModel.from_pretrained("gpt2-medium", pad_token_id=self.tokenizer.eos_token_id)
         print('Finished loading')
         self.model_loaded = True
     
 
-    def generate_sentence(self, keywords):
+    def set_device(self):
         self.load_model()
+        if self.device_set:
+            return
+        self.device = torch.device('cuda')
+        self.tokenizer = self.tokenizer.to(self.device)
+        self.model = self.model.to(self.device)
+        self.device_set = True
+
+
+    def generate_sentence(self, keywords):
+        self.set_device()
 
         print('Started generating a sentence')
         t1 = time.perf_counter()
@@ -75,7 +84,7 @@ class Generator:
     
 
     def generate_multiple_options(self, pre, amount):
-        self.load_model()
+        self.set_device()
 
         print('- Started generating a sentence')
         t1 = time.perf_counter()

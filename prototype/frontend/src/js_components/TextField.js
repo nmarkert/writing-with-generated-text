@@ -33,7 +33,7 @@ class TextField extends React.Component{
     if(this.state.intervalId !== -1) {
       clearInterval(this.state.intervalId)
     }
-    this.setState({intervalId: setInterval(this.apply_changes.bind(this), 4000)})
+    this.setState({intervalId: setInterval(this.apply_changes.bind(this), 2000)})
   }
 
   handleSubmit(event) {

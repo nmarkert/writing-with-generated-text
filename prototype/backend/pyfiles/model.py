@@ -1,4 +1,3 @@
-from flask.scaffold import F
 from pyfiles.constants import QUESTIONS
 from pyfiles.datawriter import DataWriter
 from pyfiles.taskmanager import fill_tasks
