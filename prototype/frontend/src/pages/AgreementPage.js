@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Agreement, DataPolicy } from "../js_components/Agreement";
+import { DataPolicy } from "../js_components/Agreement";
 import { Link } from "react-router-dom";
 
 export function AgreementPage() {

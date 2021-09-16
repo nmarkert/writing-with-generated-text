@@ -49,7 +49,7 @@ class Baseline extends React.Component {
     
       triggerStart() {
         if(this.state.hasChanged || 
-          (this.state.full_sen.length == this.state.sentence.length && this.state.sentence.length != 0)) {
+          (this.state.full_sen.length === this.state.sentence.length && this.state.sentence.length !== 0)) {
           this.new_generation(to_string(this.state.sentence))
         }
         else {
