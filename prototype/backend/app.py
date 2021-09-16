@@ -1,5 +1,5 @@
 from flask import Flask, request, json
-from torch.multiprocessing import set_start_method
+import torch.multiprocessing as mp
 from pyfiles.generator import Generator
 from pyfiles.constants import SURVEY_LINK, AMOUNT_SUGGESTIONS
 from pyfiles.model import Model
@@ -116,8 +116,9 @@ def get_survey_link():
     return {'link': SURVEY_LINK}
 
 
-g.load_model()
+#g.load_model()
 
 if __name__ == "__main__":
+#    mp.set_start_method('spawn', force=True)
     app.run(host='0.0.0.0')
     #set_start_method('spawn')

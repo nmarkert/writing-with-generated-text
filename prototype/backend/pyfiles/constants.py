@@ -4,8 +4,11 @@ import os
 SURVEY_LINK = 'https://hciaitools.uni-bayreuth.de/surveys/index.php/377687?lang=en'
 
 # Dir for the Data files
-DATA_DIR = os.getcwd() + '/../../data' # Data dir for real values
+DATA_DIR = os.getcwd() + '../data' # Data dir for real values
+#DATA_DIR = '/home/niklas/markert-writingwithgeneration/data' 
+#print('Datadir:', DATA_DIR)
 #DATA_DIR = os.getcwd() + '/data'        # Data dir for testing
+print('Datadir:', DATA_DIR)
 
 # Minimum text length that has to be written in one task (in words)
 MIN_TEXT_LENGTH = 20

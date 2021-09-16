@@ -42,6 +42,7 @@ class DataWriter:
         self.write_tasks_fileheader()
         with open(self.TASKS_FILENAME, 'a') as f:
             f.write(task.to_csv() + '\n')
+            print('Stored task to:', self.TASKS_FILENAME)
     
 
     # Everything for the ratings file ----------------------

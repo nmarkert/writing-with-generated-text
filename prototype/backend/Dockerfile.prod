@@ -15,5 +15,5 @@ RUN pip install -r /app/requirements.prod.txt
 
 COPY . .
 
-CMD [ "uwsgi", "--ini", "app.ini" ]
-#CMD ["python", "app.py"]
+#CMD [ "uwsgi", "--ini", "app.ini" ]
+CMD ["python", "app.py"]
