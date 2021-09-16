@@ -50,7 +50,6 @@ class Generator:
         if self.device_set:
             return
         self.device = torch.device('cuda')
-        self.tokenizer = self.tokenizer.to(self.device)
         self.model = self.model.to(self.device)
         self.device_set = True
 
