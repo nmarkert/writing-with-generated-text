@@ -14,7 +14,7 @@ class Ratings:
         self.ratings[quest] = rating
 
     def to_csv(self):
-        s = str(self.tid) + ';'
+        s = ''
         for rating in self.ratings:
             s += str(rating) + ';'
         return s[:-1]

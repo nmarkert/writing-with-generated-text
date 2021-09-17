@@ -1,3 +1,4 @@
+from dataeval.questioneval import question_user
 import os
 
 # Link to survey
@@ -47,5 +48,7 @@ TASK_FILE_HEADER = (
     'time_generating;' +
     'amount_generations;' +
     'amount_new_opts'
-    + '\n'
 )
+for i in range(len(QUESTIONS)):
+    TASK_FILE_HEADER += ';question' + str(i)
+TASK_FILE_HEADER += '\n'

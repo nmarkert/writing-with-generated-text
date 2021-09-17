@@ -5,5 +5,5 @@ import os
 USER_IDS = [0, 6, 69]
 
 # Directory for the data to evaluate
-DATA_DIR = os.getcwd() + '/../data' # Data dir for real values
+DATA_DIR = os.getcwd() + '/../prototype/backend/data' # Data dir for real values
 

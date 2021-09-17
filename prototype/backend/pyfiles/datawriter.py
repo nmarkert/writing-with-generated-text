@@ -41,11 +41,12 @@ class DataWriter:
     def store_task(self, task):
         self.write_tasks_fileheader()
         with open(self.TASKS_FILENAME, 'a') as f:
-            f.write(task.to_csv() + '\n')
+            f.write(task.to_csv() + ';' + task.ratings.to_csv() + '\n')
             print('Stored task to:', self.TASKS_FILENAME)
     
 
     # Everything for the ratings file ----------------------
+    # Not used --> Remove if everything else works
     def set_ratings_filename(self, uid):
         self.RATINGS_FILENAME = self.USER_DIR + '/' + str(uid) + '-ratings.csv'
 
@@ -55,10 +56,7 @@ class DataWriter:
             return
         header = 'taskid;'
         sec_line = ';'
-        for i in range(len(QUESTIONS)):
-            header += 'question' + str(i) + ';'
-            sec_line += QUESTIONS[i] + ';'
-        header = header[:-1] + '\n'
+        
         sec_line = sec_line[:-1] + '\n'
         with open(self.RATINGS_FILENAME, 'w') as f:
             f.write(header)
