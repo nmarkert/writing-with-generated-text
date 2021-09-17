@@ -1,4 +1,3 @@
-from dataeval.questioneval import question_user
 import os
 
 # Link to survey
