@@ -58,7 +58,7 @@ class Model:
     def save_task(self, tidx):
         if self.in_task:
             self.datawriter.store_task(self.tasks[tidx])
-            self.datawriter.store_ratings(self.tasks[tidx].ratings)
+            #self.datawriter.store_ratings(self.tasks[tidx].ratings)
             self.datawriter.write_log(self.tasks[tidx].id, self.tasks[tidx].logger.get_log())
 
 
