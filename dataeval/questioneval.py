@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from constants import DATA_DIR, USER_IDS
 
 
@@ -8,14 +10,16 @@ def question_user(qid, uid):
 
     ques = 'question' + str(qid)
 
-    return df.loc[:,['task', 'method', ques]].set_index(['task', 'method'])
+    df = df.loc[:,['task', 'method', ques]].set_index(['method', 'task'])
+    df = df.sort_values(by=['method', 'task'], ascending=True)
+
+    return df
 
 
 def transform(df):
     answers = ['no_answ','str_disagree', 'disagree', 'neither', 'agree', 'str_agree']
-    for a in answers:
-        df[a] = 0
-    
+    df[answers] = 0
+
     def vectorize_answer(row):
         answ = answers[row[0]]
         row[answ] += 1
@@ -34,8 +38,36 @@ def question_answers(qid):
     return df
 
 
-print(question_user(0, 98))
-print(question_user(0, 99))
+def question_hist_by_method(qid):
+    df = question_answers(qid)
+    labels = df.columns
+    #labels = ['No Answer', 'Strongly Disagree', 'Disagree', 'Neither', 'Agree', 'Strongly Agree']
 
-d = question_answers(0)
-print(d)
+    x = np.arange(len(labels))  # the label locations
+    width = 0.35/2  # the width of the bars
+    
+    f = [-1, 0, 1]
+    methods = ['Version0', 'Version1', 'Version2']
+    max_amount = 0
+
+    fig, ax = plt.subplots()
+    for m in range(3):
+        y = np.zeros(len(labels))
+        for t in range(2):
+            y += df.loc[(m, t)]
+        max_amount = max(int(max(y)), max_amount)
+        ax.bar(x+f[m]*width, y, width, label=methods[m])
+
+    ax.set_title('Answers by Method')
+    ax.set_yticks(range(max_amount+1))
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+
+    fig.tight_layout()
+    plt.show()
+
+
+if __name__ == '__main__':    
+    print(question_answers(0))
+    #question_hist_by_method(0)

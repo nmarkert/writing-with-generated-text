@@ -14,7 +14,10 @@ def wpm_user(uid):
 
     df['wpm'] = (df['amount_words'] / (df['needed_time'] - df['time_generating'])) * 60
 
-    return df.loc[:,['task', 'method', 'wpm']].set_index(['task', 'method'])
+    df = df.loc[:,['task', 'method', 'wpm']].set_index(['method', 'task'])
+    df = df.sort_values(by=['method', 'task'], ascending=True)
+
+    return df
 
 
 def wpm_avg():
@@ -24,4 +27,5 @@ def wpm_avg():
     df['wpm'] = df['wpm'] / len(USER_IDS)
     return df
 
-print(wpm_avg())
+if __name__ == '__main__':  
+    print(wpm_avg())
