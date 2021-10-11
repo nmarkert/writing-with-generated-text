@@ -1,12 +1,10 @@
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from constants import DATA_DIR, USER_IDS
+from constants import USER_IDS, task_file
 
 
 def question_user(qid, uid):
-    user_dir = DATA_DIR + '/user' + str(uid) + '/' + str(uid)
-    df = pd.read_csv(user_dir + '-tasks.csv', index_col='taskid', sep=';')
+    df = task_file(uid)
 
     ques = 'question' + str(qid)
 

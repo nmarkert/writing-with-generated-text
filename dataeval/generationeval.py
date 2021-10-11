@@ -1,9 +1,8 @@
-import pandas as pd
-from constants import DATA_DIR, USER_IDS
+from constants import USER_IDS, task_file
 
 
 def generations_user(uid):
-    df = pd.read_csv(DATA_DIR +'/user' + str(uid) + '/' + str(uid)  +'-tasks.csv', index_col='taskid', sep=';')
+    df = task_file(uid)
 
     df = df.loc[:, ['task', 'method', 'amount_generations']].set_index(['method', 'task'])
     df = df.drop(index = (0,0))
@@ -24,7 +23,7 @@ def generations_avg():
 
 
 def new_options_user(uid):
-    df = pd.read_csv(DATA_DIR +'/user' + str(uid) + '/' + str(uid)  +'-tasks.csv', index_col='taskid', sep=';')
+    df = task_file(uid)
     
     df = df.loc[:, ['task', 'method', 'amount_new_opts']].set_index(['method', 'task'])
     for t in range(2):

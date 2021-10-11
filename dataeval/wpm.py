@@ -1,27 +1,46 @@
-import pandas as pd
-from constants import DATA_DIR, USER_IDS
+from constants import USER_IDS, task_file
 
 
-def wpm_user(uid):
-    df = pd.read_csv(DATA_DIR +'/user' + str(uid) + '/' + str(uid)  +'-tasks.csv', index_col='taskid', sep=';')
-    
+def textlen_user(uid, include_times=False):
+    df = task_file(uid)
+
     def count_words(sen):
         l = sen.split(' ')
         while '' in l:
             l.remove('')
         return len(l)
 
-    df['amount_words'] = df['result'].apply(count_words)
+    df['text_len'] = df['result'].apply(count_words)
 
-    df['wpm'] = (df['amount_words'] / (df['needed_time'] - df['time_generating'])) * 60
+    cols = ['task', 'method', 'text_len']
+    if include_times:
+        cols.extend(['needed_time', 'time_generating'])
 
-    df = df.loc[:,['task', 'method', 'wpm']].set_index(['method', 'task'])
+    df = df.loc[:,cols].set_index(['method', 'task'])
     df = df.sort_values(by=['method', 'task'], ascending=True)
 
     return df
 
 
+def textlen_avg():
+    print('### Average text length (in words) ###')
+    df = textlen_user(USER_IDS[0])
+    for uid in USER_IDS[1:]:
+        df += textlen_user(uid)
+    df['text_len'] = df['text_len'] / len(USER_IDS)
+    return df
+
+
+def wpm_user(uid):
+    df = textlen_user(uid, True)
+
+    df['wpm'] = (df['text_len'] / (df['needed_time'] - df['time_generating'])) * 60
+
+    return df.loc[:, ['wpm']]
+
+
 def wpm_avg():
+    print('### Average Words per minute ###')
     df = wpm_user(USER_IDS[0])
     for uid in USER_IDS[1:]:
         df += wpm_user(uid)
@@ -30,4 +49,5 @@ def wpm_avg():
 
 
 if __name__ == '__main__':  
-    print(wpm_avg())
+    print(wpm_avg(13))
+    print(textlen_avg())
