@@ -1,4 +1,5 @@
 from constants import USER_IDS, task_file, log_file
+from wpm import textlen_avg
 
 
 def amount_actions_user_task(uid, tid, method=-1, amount_new_opts=-1):
@@ -34,13 +35,23 @@ def amount_actions_user(uid):
     return df
 
 
-def amount_actions_avg():
-    print('### Average Actions performed ###')
+def amount_actions_avg(info=True):
+    if info:
+        print('### Average Actions performed ###')
     df = amount_actions_user(USER_IDS[0])
     for uid in USER_IDS[1:]:
         df += amount_actions_user(uid)
     df['amount_actions'] = df['amount_actions'] / len(USER_IDS)
     return df
 
+def amount_actions_to_length_ratio(info=True):
+    if info:
+        print('### Average amount of Actions performed for one word ###')
+    df = amount_actions_avg(False)
+    df['text_len'] = textlen_avg(False)['text_len']
+    df['ratio'] = df['amount_actions'] / df['text_len']
 
-print(amount_actions_avg())
+    return df
+
+
+print(amount_actions_to_length_ratio())

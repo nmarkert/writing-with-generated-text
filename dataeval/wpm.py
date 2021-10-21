@@ -3,7 +3,6 @@ from constants import USER_IDS, task_file
 
 def textlen_user(uid, include_times=False):
     df = task_file(uid)
-
     def count_words(sen):
         l = sen.split(' ')
         while '' in l:
@@ -22,8 +21,9 @@ def textlen_user(uid, include_times=False):
     return df
 
 
-def textlen_avg():
-    print('### Average text length (in words) ###')
+def textlen_avg(info=True):
+    if info:
+        print('### Average text length (in words) ###')
     df = textlen_user(USER_IDS[0])
     for uid in USER_IDS[1:]:
         df += textlen_user(uid)
@@ -49,5 +49,5 @@ def wpm_avg():
 
 
 if __name__ == '__main__':  
-    print(wpm_avg(13))
+    print(wpm_avg())
     print(textlen_avg())

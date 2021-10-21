@@ -23,7 +23,7 @@ METHODS = {
 # The different tasks
 TASKS = {
     # Concrete Task
-    0: 'It\'s your friends birthday. Write him an e-mail to wish him all the best and mention that you have to meet again in some time.', 
+    0: 'It\'s your friend\'s birthday. Write him an email to wish him all the best and mention that you have to meet again in some time.', 
     # Open Task
     1: 'Write a short story about your last or upcoming vacation.'
 }
@@ -34,7 +34,7 @@ QUESTIONS = [
     'It was easy for me to write the text.',
     'I feel like I am the author of the text.',
     'The interaction method was suitable for this task.',
-    'The interaction method helped me writing the text.',
+    'The interaction method helped me write the text.',
     'The interaction method influenced the wording of the text.'
 ]
 
