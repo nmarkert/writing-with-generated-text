@@ -1,5 +1,6 @@
 __pycache__/
 
 dataeval/plots
+dataeval/tables
 
 #TODO .gitignore anpasssen, vllt für komplettes projekt in einer

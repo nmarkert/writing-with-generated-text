@@ -1,5 +1,5 @@
-from constants import USER_IDS, task_file, log_file
-from wpm import textlen_avg
+from constants import USER_IDS, task_file, log_file, boxplot_by_method, avg_by_method
+from wpm import textlen_avg, textlen_user
 
 
 def amount_actions_user_task(uid, tid, method=-1, amount_new_opts=-1):
@@ -34,6 +34,15 @@ def amount_actions_user(uid):
 
     return df
 
+def actions_length_ratio_user(uid):
+    df = amount_actions_user(uid)
+    df2 = textlen_user(uid)
+
+    df['text_len'] = df2['text_len']
+    df['ratio'] = df['amount_actions'] / df['text_len']
+
+    return df
+
 
 def amount_actions_avg(info=True):
     if info:
@@ -46,12 +55,28 @@ def amount_actions_avg(info=True):
 
 def amount_actions_to_length_ratio(info=True):
     if info:
-        print('### Average amount of Actions performed for one word ###')
+        print('### Average amount of Actions performed for one character ###')
     df = amount_actions_avg(False)
     df['text_len'] = textlen_avg(False)['text_len']
     df['ratio'] = df['amount_actions'] / df['text_len']
 
     return df
 
+def amount_actions_boxplot(save=False):
+    boxplot_by_method(amount_actions_user, 'amount_actions', 
+                    title='Amount actions performed', 
+                    showfliers=False, 
+                    save=save, 
+                    filename='amount_actions')
 
-print(amount_actions_to_length_ratio())
+def actions_length_ratio_boxplot(save=False):
+    boxplot_by_method(actions_length_ratio_user, 'ratio', 
+                        title='Ratio Amount of Actions per character', 
+                        showfliers=False, 
+                        save=save, 
+                        filename='act_len_ratio')
+
+if __name__ == '__main__':
+    print(avg_by_method(amount_actions_to_length_ratio))
+    #amount_actions_boxplot(True)
+    #actions_length_ratio_boxplot(False)

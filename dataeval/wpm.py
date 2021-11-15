@@ -1,15 +1,22 @@
-from constants import USER_IDS, task_file
+from constants import USER_IDS, task_file, boxplot_by_method, avg_by_method
 
 
-def textlen_user(uid, include_times=False):
+def textlen_user(uid, include_times=False, in_words=False):
     df = task_file(uid)
+
     def count_words(sen):
         l = sen.split(' ')
         while '' in l:
             l.remove('')
         return len(l)
 
-    df['text_len'] = df['result'].apply(count_words)
+    def count_characters(sen):
+        return len(sen)
+
+    if in_words:
+        df['text_len'] = df['result'].apply(count_words)
+    else:
+        df['text_len'] = df['result'].apply(count_characters)
 
     cols = ['task', 'method', 'text_len']
     if include_times:
@@ -23,7 +30,7 @@ def textlen_user(uid, include_times=False):
 
 def textlen_avg(info=True):
     if info:
-        print('### Average text length (in words) ###')
+        print('### Average text length (in characters) ###')
     df = textlen_user(USER_IDS[0])
     for uid in USER_IDS[1:]:
         df += textlen_user(uid)
@@ -31,16 +38,21 @@ def textlen_avg(info=True):
     return df
 
 
-def wpm_user(uid):
-    df = textlen_user(uid, True)
+def wpm_user(uid, actual_words=False):
 
-    df['wpm'] = (df['text_len'] / (df['needed_time'] - df['time_generating'])) * 60
+    df = textlen_user(uid, True, actual_words)
+
+    if actual_words:
+        df['wpm'] = (df['text_len'] / (df['needed_time'] - df['time_generating'])) * 60
+    else:
+        df['wpm'] = (df['text_len'] / 5) / ((df['needed_time'] - df['time_generating']) / 60)
 
     return df.loc[:, ['wpm']]
 
 
-def wpm_avg():
-    print('### Average Words per minute ###')
+def wpm_avg(info=True):
+    if info:
+        print('### Average Words per minute ###')
     df = wpm_user(USER_IDS[0])
     for uid in USER_IDS[1:]:
         df += wpm_user(uid)
@@ -48,6 +60,28 @@ def wpm_avg():
     return df
 
 
+def wpm_avg_by_method():
+    df = wpm_avg()
+    df = df.groupby(level='method').sum()
+    df = df/2
+    return df
+
+def wpm_boxplot(save=False):
+    boxplot_by_method(wpm_user, 'wpm', 
+                        title='Words per Minute',
+                        showfliers=False,
+                        save=save,
+                        filename='wpm')
+
+def textlen_boxplot(save=False):
+    boxplot_by_method(textlen_user, 'text_len', 
+                        title='Text Length (in characters)',
+                        showfliers=False,
+                        save=save, 
+                        filename='textlen')
+
+
 if __name__ == '__main__':  
-    print(wpm_avg())
-    print(textlen_avg())
+    print(avg_by_method(wpm_avg))
+    print(avg_by_method(textlen_avg))
+    

@@ -22,7 +22,6 @@ def generations_avg():
     return df
 
 
-
 def new_options_user(uid):
     df = task_file(uid)
     

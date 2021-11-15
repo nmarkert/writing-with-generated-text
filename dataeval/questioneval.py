@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-from constants import USER_IDS, task_file, QUESTIONS, diverging_bar
+from constants import USER_IDS, task_file, QUESTIONS, diverging_bar, LOGEVAL
 
 
 def question_user(qid, uid):
@@ -73,19 +72,20 @@ def question_diverging_bar(qid, save=False):
     df = question_answers(qid, False)
     df = df.drop('no_answ', axis=1)
 
+    vers = ['Std. Input', 'Con. gen. Text', 'Writ. with Sugg.']
+    tasks = ['Birthday', 'Vacation']
+
     idxs = list()
     for i in range(3):
         for j in range(2):
-            idxs.append("Version " + str(i) + " - Task " + str(j))
+            idxs.append(vers[i] + ' - ' + tasks[j])
     
     names = ['Strongly disagree', 'Disagree',
             'Neither agree nor disagree',
             'Agree', 'Strongly agree']
     
-    if save:
-        diverging_bar(df, idxs, names, True, 'question' + str(qid))
-    else:
-        diverging_bar(df, idxs, names, False)
+    
+    diverging_bar(df, idxs, names, QUESTIONS[qid],  save, 'question' + str(qid))
 
 
 def question_diverging_bar_by_method(qid, save=False):
@@ -93,23 +93,26 @@ def question_diverging_bar_by_method(qid, save=False):
     df = df.drop('no_answ', axis=1)
 
     df = df.groupby('method').sum()
-    
+
     idxs = list()
     for i in range(3):
         idxs.append('Version ' + str(i))
+
+    #if qid >= 3:
+    #    df = df.drop(0)
+    #    del idxs[0]
+    
 
     names = ['Strongly disagree', 'Disagree',
             'Neither agree nor disagree',
             'Agree', 'Strongly agree']
     
-    if save:
-        diverging_bar(df, idxs, names, True, 'question' + str(qid) + '_by_method')
-    else:
-        diverging_bar(df, idxs, names, False)
+    diverging_bar(df, idxs, names, QUESTIONS[qid], save, 'question' + str(qid) + '_by_method')
 
 
 
-if __name__ == '__main__':    
-    question_diverging_bar_by_method(0, True)
-    #for i in range(6):
-    #    print(question_answers(i))
+if __name__ == '__main__':  
+    for i in range(6):
+        question_diverging_bar(i, True)
+        #print(question_answers(i))
+
