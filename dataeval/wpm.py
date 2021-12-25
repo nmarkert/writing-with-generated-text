@@ -68,20 +68,21 @@ def wpm_avg_by_method():
 
 def wpm_boxplot(save=False):
     boxplot_by_method(wpm_user, 'wpm', 
-                        title='Words per Minute',
+                        title='1)  Words per Minute',
                         showfliers=False,
                         save=save,
                         filename='wpm')
 
 def textlen_boxplot(save=False):
     boxplot_by_method(textlen_user, 'text_len', 
-                        title='Text Length (in characters)',
+                        title='2)  Text Length (in characters)',
                         showfliers=False,
                         save=save, 
                         filename='textlen')
 
 
 if __name__ == '__main__':  
-    print(avg_by_method(wpm_avg))
-    print(avg_by_method(textlen_avg))
+    #print(avg_by_method(wpm_avg))
+    #print(avg_by_method(textlen_avg))
+    wpm_boxplot()
     

@@ -14,3 +14,4 @@ def plot_table(tbl_name, save=False):
 if __name__ == '__main__':
     for tbl in ['insp_helpfull', 'inspired', 'learning']:
         plot_table(tbl, True)
+    #plot_table('insp_helpfull')

@@ -103,28 +103,28 @@ def amount_backs_boxplot(save=False):
 
 def backs_textlen_ratio_boxplot(save=False):
     boxplot_by_method(backs_textlen_ratio_user, 'ratio', 
-                        title='Ratio Amount of Backspaces per character', 
+                        title='4)  Ratio Amount of Backspaces per character', 
                         showfliers=False, 
                         save=save, 
                         filename='backs_len_ratio')
 
 def amount_backsequs_textlen_ratio_boxplot(save=False):
     boxplot_by_method(backsequs_textlen_ratio_user, 'ratio', 
-                        title='Ratio Amount of Backspace-Sequences per character', 
+                        title='5)  Ratio Amount of Backspace-Sequences per character', 
                         showfliers=False, 
                         save=save, 
                         filename='backseque_len_ratio')
 
 def backsequs_len_boxplot(save=False):
     boxplot_by_method(backsequs_textlen_ratio_user, 'avg_len_backsequs', 
-                        title='Length of Backspace-Sequences (in characters)', 
+                        title='6)  Length of Backspace-Sequences (in characters)', 
                         showfliers=False, 
                         save=save, 
                         filename='backseques_length')
 
 if __name__ == '__main__':
     #backs_textlen_ratio_boxplot(True)
-    #amount_backsequs_textlen_ratio_boxplot(True)
+    amount_backsequs_textlen_ratio_boxplot()
     #backsequs_len_boxplot(True)#
-    print(avg_by_method(backsequs_avg))
-    print(avg_by_method(backs_textlen_ratio_avg))
+    #print(avg_by_method(backsequs_avg))
+    #print(avg_by_method(backs_textlen_ratio_avg))

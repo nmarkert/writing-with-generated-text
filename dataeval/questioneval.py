@@ -84,8 +84,9 @@ def question_diverging_bar(qid, save=False):
             'Neither agree nor disagree',
             'Agree', 'Strongly agree']
     
-    
-    diverging_bar(df, idxs, names, QUESTIONS[qid],  save, 'question' + str(qid))
+    title = str(qid + 1) + ')  ' + QUESTIONS[qid]
+
+    diverging_bar(df, idxs, names, title,  save, 'question' + str(qid))
 
 
 def question_diverging_bar_by_method(qid, save=False):
@@ -115,4 +116,5 @@ if __name__ == '__main__':
     for i in range(6):
         question_diverging_bar(i, True)
         #print(question_answers(i))
+    #question_diverging_bar(1)
 

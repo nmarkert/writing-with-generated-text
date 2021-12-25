@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 USER_IDS = list(range(12, 33))
 USER_IDS.remove(29)
 
-LOGEVAL = True
+LOGEVAL = False
 if (LOGEVAL):
     # Remove when evaluating Log-Data
     USER_IDS.remove(13) # Problems on V2
@@ -102,6 +102,8 @@ def diverging_bar(df, idxs, names, title='', save=False, filename='', format='sv
                         legend_orientation='v',
                         legend_x=1.1, legend_y=0,
                         title=title,
+                        titlefont={'color': 'black'},
+                        font={'color': 'black'},
                         plot_bgcolor ='white',
                         xaxis=dict(
                             tickmode = 'array',
@@ -120,7 +122,7 @@ def diverging_bar(df, idxs, names, title='', save=False, filename='', format='sv
         diverging.show()
 
 
-def boxplot_by_method(func, col_name, title='', showfliers=False,  save=False, filename='', format='png'):
+def boxplot_by_method(func, col_name, title='', showfliers=False,  save=False, filename='', format='svg'):
     df = pd.DataFrame(columns=['V0', 'V1', 'V2'])
 
     for uid in USER_IDS:

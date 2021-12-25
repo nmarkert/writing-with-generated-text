@@ -71,7 +71,7 @@ def amount_actions_boxplot(save=False):
 
 def actions_length_ratio_boxplot(save=False):
     boxplot_by_method(actions_length_ratio_user, 'ratio', 
-                        title='Ratio Amount of Actions per character', 
+                        title='3)  Ratio Amount of Actions per character', 
                         showfliers=False, 
                         save=save, 
                         filename='act_len_ratio')
