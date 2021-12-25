@@ -55,12 +55,12 @@ class Generator:
 
 
     def generate_sentence(self, keywords):
-        self.set_device()
+        #self.set_device()
 
         print('Started generating a sentence')
         t1 = time.perf_counter()
 
-        input_ids = self.tokenizer.encode(keywords, return_tensors='pt').to(self.device)
+        input_ids = self.tokenizer.encode(keywords, return_tensors='pt')#.to(self.device)
         input_len = len(input_ids[0])
 
         sample_output = self.model.generate(
@@ -83,12 +83,12 @@ class Generator:
     
 
     def generate_multiple_options(self, pre, amount):
-        self.set_device()
+        #self.set_device()
 
         print('- Started generating a sentence')
         t1 = time.perf_counter()
 
-        input_ids = self.tokenizer.encode(pre, return_tensors='pt').to(self.device)
+        input_ids = self.tokenizer.encode(pre, return_tensors='pt')#.to(self.device)
         input_len = len(input_ids[0])
         
         sample_outputs = self.model.generate(
@@ -107,6 +107,7 @@ class Generator:
             if sample[0] == '':
                 sample = sample[1:]
             out.append(get_first_sentence(sample))
+            #out.append(sample)
         
         t2 = time.perf_counter()
         time_needed = t2-t1
@@ -159,5 +160,25 @@ def test2():
         for w in sentences[index]:
             pre += ' ' + w
 
+
+def test3():
+    lens = list()
+    g = Generator()
+    g.load_model()
+    pre = 'I was playing'
+
+    for i in range(20):
+        sentences, t = g.generate_multiple_options(pre, 3)
+        for s in sentences:
+            lens.append(len(s))
+            print(s)
+        for w in sentences[0]:
+            pre += ' ' + w
+    return lens
+
 if __name__ == "__main__":
-    test2()
+    lens = test3()
+    print('----------------')
+    print(lens)
+    print(min(lens),'-', max(lens))
+    print(sum(lens)/len(lens))

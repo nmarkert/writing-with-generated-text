@@ -10,8 +10,8 @@ import { FinishPage } from './pages/FinishPage';
 
 import './App.css';
 
-//export const BACKEND_URL = process.env.BACKEND_URL || ""
-export const BACKEND_URL = 'http://btn6xd.inf.uni-bayreuth.de/markert-generation-backend/'
+export const BACKEND_URL = ""
+//export const BACKEND_URL = 'http://btn6xd.inf.uni-bayreuth.de/markert-generation-backend/'
 
 class App extends React.Component {
   
