@@ -1,8 +1,8 @@
-# Description
+# Webapplication for the study
 
 This project is a prototype for interacting with generated text. <br>
 At the moment there are two different tasks and 3 different interaction methods implemented to fulfill the tasks.
-Some data from the tasks is logged in the backend part and other each tasks there are some questions.
+Some data from the tasks is logged in the backend part and after each tasks there are some questions.
 
 
 # How to Run

@@ -82,7 +82,7 @@ def textlen_boxplot(save=False):
 
 
 if __name__ == '__main__':  
-    #print(avg_by_method(wpm_avg))
-    #print(avg_by_method(textlen_avg))
+    print(avg_by_method(wpm_avg))
+    print(avg_by_method(textlen_avg))
     wpm_boxplot()
     

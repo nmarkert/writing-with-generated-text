@@ -1,6 +1,5 @@
 import os, os.path
-
-from pyfiles.constants import DATA_DIR, QUESTIONS, TASK_FILE_HEADER
+from pyfiles.constants import DATA_DIR, TASK_FILE_HEADER
 
 class DataWriter:
 
@@ -43,29 +42,6 @@ class DataWriter:
         with open(self.TASKS_FILENAME, 'a') as f:
             f.write(task.to_csv() + ';' + task.ratings.to_csv() + '\n')
             print('Stored task to:', self.TASKS_FILENAME)
-    
-
-    # Everything for the ratings file ----------------------
-    # Not used --> Remove if everything else works
-    def set_ratings_filename(self, uid):
-        self.RATINGS_FILENAME = self.USER_DIR + '/' + str(uid) + '-ratings.csv'
-
-    def write_ratings_fileheader(self):
-        self.create_user_dir()
-        if os.path.isfile(self.RATINGS_FILENAME):
-            return
-        header = 'taskid;'
-        sec_line = ';'
-        
-        sec_line = sec_line[:-1] + '\n'
-        with open(self.RATINGS_FILENAME, 'w') as f:
-            f.write(header)
-            f.write(sec_line)
-        
-    def store_ratings(self, ratings):
-        self.write_ratings_fileheader()
-        with open(self.RATINGS_FILENAME, 'a') as f:
-            f.write(ratings.to_csv() + '\n')
     
 
     # Everything for the log files ----------------------

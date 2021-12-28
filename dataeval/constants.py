@@ -4,23 +4,15 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 
 # All ids of users for which data is stored
-# Maybe store a text file in data with all the ids
-USER_IDS = list(range(12, 33))
-USER_IDS.remove(29)
+USER_IDS = list(range(0, 1)) # Has to be adapted for the userIds you have data for
 
-LOGEVAL = False
-if (LOGEVAL):
-    # Remove when evaluating Log-Data
-    USER_IDS.remove(13) # Problems on V2
-    USER_IDS.remove(30) # Done on Laptop
+# Directory where the data to evaluate get stored
+DATA_DIR = os.getcwd() + '/../prototype/backend/data'
 
-# Directory for the data to evaluate
-DATA_DIR = os.getcwd() + '/../prototype/backend/real_data' # Data dir for real values
-
-# Directory for the output
+# Directory for the output of the plots
 OUTPUT_DIR = os.getcwd() + '/plots'
 
-# Directory for the input
+# Directory for the input of the tables to plot from
 INPUT_DIR = os.getcwd() + '/tables'
 
 # Gets the task file based on the userId
@@ -53,7 +45,6 @@ def avg_by_method(func):
 def diverging_bar(df, idxs, names, title='', save=False, filename='', format='svg'):
     diverging = go.Figure()
 
-    
     n1 = -1*df.iloc[:, 2] / 2
     n2 = n1 - df.iloc[:, 1]
     n3 = n2 - df.iloc[:, 0]
@@ -120,7 +111,6 @@ def diverging_bar(df, idxs, names, title='', save=False, filename='', format='sv
         diverging.write_image(out + '/' + filename + '.' + format)
     else:
         diverging.show()
-
 
 def boxplot_by_method(func, col_name, title='', showfliers=False,  save=False, filename='', format='svg'):
     df = pd.DataFrame(columns=['V0', 'V1', 'V2'])

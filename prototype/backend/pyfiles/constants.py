@@ -1,16 +1,20 @@
 import os
 
-# Link to survey
-SURVEY_LINK = 'https://hciaitools.uni-bayreuth.de/surveys/index.php/377687?lang=en'
+"""
+One file with all the constants for the backend.
+So if you want to change any variable you just have to change it in here.
+"""
+
+# Link to survey at the end of the study
+SURVEY_LINK = 'https://hciaitools.uni-bayreuth.de/surveys/index.php/377687?lang=en' # This link might be unavailable
 
 # Dir for the Data files
-#DATA_DIR = os.getcwd() + '/data'  
-DATA_DIR = os.getcwd() + '/real_data'  
+DATA_DIR = os.getcwd() + '/data'  
 
 # Minimum text length that has to be written in one task (in words)
 MIN_TEXT_LENGTH = 20
 
-# The amount of displayed suggestions (for Version2)
+# The amount of displayed suggestions (for Version2 / Writing with suggestions)
 AMOUNT_SUGGESTIONS = 3
 
 # The names for the different methods
