@@ -21,8 +21,6 @@ export function WritingPage() {
             .then(response => response.json())
             .then(data => setTask(data))
 
-            //fetch(`/api/task/${tid}/start_timer`)
-
             return () => {
                 fetch(`${BACKEND_URL}/api/task/${tid}/end_timer`)
             }

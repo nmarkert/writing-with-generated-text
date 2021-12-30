@@ -19,7 +19,6 @@ class DataWriter:
     def set_user_id(self, uid):
         self.set_user_dir(uid)
         self.set_tasks_filename(uid)
-        self.set_ratings_filename(uid)
         self.set_log_dir(uid)
     
     def set_user_dir(self, uid):

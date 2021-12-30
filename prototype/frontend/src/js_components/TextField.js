@@ -64,7 +64,6 @@ class TextField extends React.Component{
     })
   }
 
-  // onBlur={this.props.start} 
   render() {
     return (
       <>

@@ -1,4 +1,4 @@
-# Writing wiht generated Text on mobile devices
+# Writing with generated Text on mobile devices
 ...
 
 ## Prototype
