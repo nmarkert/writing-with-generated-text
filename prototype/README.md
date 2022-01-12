@@ -1,10 +1,21 @@
 # Web application for the study
 
-## Description
+This project implements two differents prototypes for writing with generated text and a study for evaluating them. <br>
+It is realised as a web application with a Python backend and a JavaScript frontend. 
 
-This project is a prototype for interacting with generated text. <br>
+## Prototypes
+[!Alt text](Implementierung.png)
+
+### Continous generated Text
+...
+
+### Writing with suggestions
+...
+
+## Study
+...
 At the moment there are two different tasks and 3 different interaction methods implemented to fulfill the tasks.
-Some data from the tasks is logged in the backend part and after each tasks there are some questions.
+Some data from the tasks is logged in the backend part and after each tasks there are some short questions.
 
 
 ## How to Run
