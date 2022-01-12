@@ -7,3 +7,6 @@ __pycache__/
 plots/
 # Tables from which the data get ploted in tblplots.py
 tables/
+
+# main.py could be a place where you call all needed functions from the different files at once
+main.py
