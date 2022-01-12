@@ -1,6 +1,5 @@
 from constants import USER_IDS, task_file, log_file, boxplot_by_method, avg_by_method
 from wpm import textlen_user
-import numpy as np
 
 def amount_backs_user_task(uid, tid):
     df = log_file(uid, tid)
@@ -123,8 +122,8 @@ def backsequs_len_boxplot(save=False):
                         filename='backseques_length')
 
 if __name__ == '__main__':
-    #backs_textlen_ratio_boxplot(True)
-    amount_backsequs_textlen_ratio_boxplot()
-    #backsequs_len_boxplot(True)#
-    #print(avg_by_method(backsequs_avg))
-    #print(avg_by_method(backs_textlen_ratio_avg))
+    print(avg_by_method(backs_textlen_ratio_avg))
+    print(avg_by_method(backsequs_avg))
+    backs_textlen_ratio_boxplot(True)
+    amount_backsequs_textlen_ratio_boxplot(True)
+    backsequs_len_boxplot(True)

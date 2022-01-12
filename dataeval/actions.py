@@ -78,5 +78,4 @@ def actions_length_ratio_boxplot(save=False):
 
 if __name__ == '__main__':
     print(avg_by_method(amount_actions_to_length_ratio))
-    #amount_actions_boxplot(True)
-    #actions_length_ratio_boxplot(False)
+    actions_length_ratio_boxplot(True)
