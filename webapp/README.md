@@ -1,7 +1,8 @@
-# Web application for the study
+# Web application
 
 This project implements two differents prototypes for writing with generated text and a study for evaluating them. <br>
-It is realised as a web application with a Python backend and a JavaScript frontend. 
+It is realised as a web application. The backend is written in Python and uses the Flask-Library. The text-generation which is located in the backend uses the pretrained GPT-2 Model from Huggingface. The frontend is written in JavaScript with the React-Library. <br>
+The project also contains some Docker-Files. I used them for launching the application on the server for the user study.
 
 
 ## Prototypes
@@ -34,10 +35,8 @@ Start two seperate terminals.
 In the first one go to the backend (`cd backend`) and run `python app.py`. <br>
 In the second one got to the frontend (`cd frontend`) and run `npm start`.
 
-It is now available on `http://localhost:3000/`.
+It is now available on `http://localhost:3000/markert-generation-frontend`.
 
 ### Run with docker
 First run `docker-compose build` to build the project. <br>
 Then run `docker-compose up` to run the project.
-
-It is now available on `http://localhost:8080/`.
