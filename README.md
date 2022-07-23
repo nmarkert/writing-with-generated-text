@@ -7,10 +7,7 @@ The project also contains some Docker-Files. I used them for launching the appli
 
 
 ## Prototypes
-<figure>
-    <img src="https://user-images.githubusercontent.com/66016784/149120547-c9a1f60e-23ee-48ce-81a3-bbfabf10a15e.png" alt="text" width="600"/>
-    <figcaption>Screenshots of the two Prototypes</figcaption>
-</figure>
+<img src="https://user-images.githubusercontent.com/66016784/149120547-c9a1f60e-23ee-48ce-81a3-bbfabf10a15e.png" alt="text" width="600"/>
 
 The writing process with both techniques starts by typing the first sentence of the text you want to write.
 
