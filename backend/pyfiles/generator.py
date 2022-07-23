@@ -3,7 +3,6 @@
 import random
 import time
 import torch
-from torch.multiprocessing import set_start_method
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 mock_sentences = [
